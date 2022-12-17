@@ -110,7 +110,7 @@ class _SickHomeState extends State<SickHome> {
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       child: Consumer<SickGet>(builder: (context, value, child) {
         return value.map.length == 0 && !value.error
-            ? const ErrorGetData()
+            ? const My_loading()
             : value.error
                 ? Text(value.errorMessage.toString())
                 : GridView.builder(
@@ -177,7 +177,7 @@ class _SickHomeState extends State<SickHome> {
       show_data = value.map;
       show_data_Search = value.map;
       return value.map.length == 0 && !value.error
-          ? const ErrorGetData()
+          ? const My_loading()
           : value.error
               ? Text(value.errorMessage.toString())
               : ListView.builder(

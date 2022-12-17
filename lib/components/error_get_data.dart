@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class ErrorGetData extends StatelessWidget {
-  const ErrorGetData({Key? key}) : super(key: key);
+class My_loading extends StatelessWidget {
+  const My_loading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -30,7 +30,7 @@ class _SickSelectState extends State<SickSelect> {
                   return Text(signs_data_final[index].name);
                 },
               )
-            : const ErrorGetData(),
+            : const My_loading(),
       ),
     );
   }

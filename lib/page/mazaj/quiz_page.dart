@@ -144,7 +144,7 @@ class _QuizPageState extends State<QuizPage> {
                   ],
                 ),
               )
-            : const ErrorGetData(),
+            : const My_loading(),
       ),
     );
   }

@@ -143,7 +143,7 @@ class _PlantHomeState extends State<PlantHome> {
           show_data = value.map;
           show_data_Search = value.map;
           return value.map.length == 0 && !value.error
-              ? const ErrorGetData()
+              ? const My_loading()
               : value.error
                   ? Text(value.errorMessage.toString())
                   : ListView.builder(

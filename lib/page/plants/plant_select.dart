@@ -63,7 +63,7 @@ class _PlantSelectState extends State<PlantSelect> {
       //     ],
       //     elevation: 0.0),
       body: widget.data!.length == 0
-          ? const ErrorGetData()
+          ? const My_loading()
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: ListView.builder(

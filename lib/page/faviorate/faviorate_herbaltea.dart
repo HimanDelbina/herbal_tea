@@ -39,7 +39,7 @@ class _FaviorateHerbalTeaState extends State<FaviorateHerbalTea> {
                 is_rich: false
                 )
             : faviorate_data.length == 0
-                ? const ErrorGetData()
+                ? const My_loading()
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10.0),

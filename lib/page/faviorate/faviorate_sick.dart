@@ -39,7 +39,7 @@ class _FaviorateSickState extends State<FaviorateSick> {
                 text: "لیست مورد علاقه شما خالی است",
                 is_rich: false)
             : faviorate_data.length == 0
-                ? const ErrorGetData()
+                ? const My_loading()
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10.0),

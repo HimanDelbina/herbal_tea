@@ -60,7 +60,7 @@ class _HerbalTeaSelectState extends State<HerbalTeaSelect> {
                   HerbalTeaZarar(data: zarar_data_final)
                 ],
               )
-            : const ErrorGetData(),
+            : const My_loading(),
       ),
     );
   }

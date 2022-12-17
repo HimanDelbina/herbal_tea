@@ -28,7 +28,7 @@ class _HerbalTeaDataState extends State<HerbalTeaData> {
     ThemeBloc theme = Provider.of<ThemeBloc>(context);
     return Scaffold(
       body: widget.data!.length == 0
-          ? const ErrorGetData()
+          ? const My_loading()
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: ListView.builder(

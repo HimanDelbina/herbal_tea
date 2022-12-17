@@ -46,12 +46,11 @@ class _FavioratePlantState extends State<FavioratePlant> {
                 text: "لیست مورد علاقه شما خالی است",
                 is_rich: false)
             : faviorate_data.length == 0
-                ? const ErrorGetData()
+                ? const My_loading()
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10.0),
-                    child: item(faviorate_data),
-                  )
+                    child: item(faviorate_data))
         : const SignUpError();
   }
 

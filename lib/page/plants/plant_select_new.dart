@@ -60,7 +60,7 @@ class _PlantSelectNewState extends State<PlantSelectNew> {
                   PlantZarar(data: zarar_data_final)
                 ],
               )
-            : const ErrorGetData(),
+            : const My_loading(),
       ),
     );
   }

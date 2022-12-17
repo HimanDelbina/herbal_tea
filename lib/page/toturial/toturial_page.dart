@@ -34,7 +34,7 @@ class _ToturialPageState extends State<ToturialPage> {
       body: SafeArea(
         child: Consumer<PlantToturiaGet>(builder: (context, value, child) {
           return value.map.length == 0 && !value.error
-              ? const ErrorGetData()
+              ? const My_loading()
               : value.error
                   ? Text(value.errorMessage.toString())
                   : Padding(

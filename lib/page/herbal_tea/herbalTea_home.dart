@@ -110,7 +110,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
       show_data = value.map;
       show_data_Search = value.map;
       return value.map.length == 0 && !value.error
-          ? const ErrorGetData()
+          ? const My_loading()
           : value.error
               ? Text(value.errorMessage.toString())
               : ListView.builder(
@@ -191,7 +191,19 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                     Row(
                                                       children: [
                                                         GestureDetector(
-                                                            onTap: () {},
+                                                            onTap: () {
+                                                              setState(() {
+                                                                herbaltea_id =
+                                                                    show_data[
+                                                                            index]
+                                                                        .id;
+                                                              });
+                                                              if (SharedHelper
+                                                                      .my_token !=
+                                                                  null) {
+                                                                add_to_card();
+                                                              }
+                                                            },
                                                             child: const Icon(
                                                                 IconlyLight
                                                                     .bag)),
@@ -303,14 +315,6 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     }
   }
 
-// {
-//     "id": 1,
-//     "count": 2,
-//     "is_price": false,
-//     "create_at": "2022-12-17T22:19:08.334856+03:30",
-//     "user": 10,
-//     "herbal_tea": 2
-// }
   void post_card() {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 1),
@@ -327,7 +331,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
   void add_to_card() async {
     String url = Helper.url + "card/post_herbalTea_card";
     var body = json
-        .encode({"user": UserStaticFile.user_id!, "herbaltea": herbaltea_id});
+        .encode({"user": UserStaticFile.user_id!, "herbal_tea": herbaltea_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       post_card();

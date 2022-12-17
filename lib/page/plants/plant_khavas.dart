@@ -23,7 +23,7 @@ class _PlantKhavasState extends State<PlantKhavas> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: widget.data.length == 0
-              ? const ErrorGetData()
+              ? const My_loading()
               : ListView.builder(
                   itemCount: widget.data.length,
                   itemBuilder: (context, index) {

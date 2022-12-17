@@ -2,10 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/page/start_page.dart';
-import 'package:sara_plant/page/test_page.dart';
-import 'page/cheack_net.dart';
 import 'provider/check_internet.dart';
-import 'page/splash_page.dart';
+import 'provider/get_card.dart';
 import 'provider/get_herbaltea.dart';
 import 'provider/get_plant.dart';
 import 'provider/get_sick.dart';
@@ -39,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PlantGet>.value(value: PlantGet()),
         ChangeNotifierProvider<SickGet>.value(value: SickGet()),
         ChangeNotifierProvider<HerbalTeaGet>.value(value: HerbalTeaGet()),
+        ChangeNotifierProvider<CardGet>.value(value: CardGet()),
       ],
       child: MaterialApp(
         scaffoldMessengerKey: _messangerKey,
