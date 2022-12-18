@@ -101,31 +101,12 @@ class _AnswerPageState extends State<AnswerPage> {
       setState(() {
         color = Colors.greenAccent.withOpacity(0.3);
         icon = IconlyBold.tick_square;
-        // select_mazaj = final_data.toString();
         icon_color = Colors.black;
       });
-      // if (data == 0) {
-      //   setState(() {
-      //     select_mazaj = "مزاج سرد و تر";
-      //   });
-      // } else if (data == 1) {
-      //   setState(() {
-      //     select_mazaj = "مزاج گرم و خشک";
-      //   });
-      // } else if (data == 2) {
-      //   setState(() {
-      //     select_mazaj = "مزاج گرم و تر";
-      //   });
-      // } else if (data == 3) {
-      //   setState(() {
-      //     select_mazaj = "مزاج سرد و خشک";
-      //   });
-      // }
     } else if (final_data > 40) {
       setState(() {
         color = Colors.amberAccent.withOpacity(0.3);
         icon = IconlyBold.more_square;
-        // select_mazaj = final_data.toString();
         icon_color = Colors.black;
       });
     }

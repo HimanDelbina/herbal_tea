@@ -183,6 +183,8 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                         "قیمت : " +
                                                             show_data[index]
                                                                 .price
+                                                                .toStringAsFixed(
+                                                                    0)
                                                                 .toString()
                                                                 .toPersianDigit()
                                                                 .seRagham(),

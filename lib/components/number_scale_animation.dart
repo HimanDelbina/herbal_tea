@@ -41,7 +41,7 @@ class _MyNumberScaleAnimationState extends State<MyNumberScaleAnimation> {
                 return ScaleTransition(scale: animation, child: child);
               },
         child: widget.is_price!
-            ? Text(widget.price.toString().toPersianDigit().seRagham(),
+            ? Text(widget.price!.toStringAsFixed(0).toPersianDigit().seRagham(),
                 key: ValueKey<double>(widget.price!), style: widget.style)
             : Text(widget.number.toString(),
                 key: ValueKey<int>(widget.number!), style: widget.style));

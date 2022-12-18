@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/number_scale_animation.dart';
 import 'package:sara_plant/provider/get_card.dart';
 import '../../components/error_page.dart';
+import '../../components/image_slider.dart';
 import '../../components/sign_up_error.dart';
 import '../../components/user_static.dart';
 import '../../provider/theme.dart';
@@ -37,17 +37,21 @@ class _CardPageState extends State<CardPage> {
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       body: SafeArea(
-          child: UserStaticFile.user_id != null
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: list_show_card_data())
-              : const SignUpError()),
+        child: UserStaticFile.user_id != null
+            ? Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
+                child: list_show_card_data(),
+              )
+            : const SignUpError(),
+      ),
     );
   }
 
-  int count = 1;
+  // List<int> count = [];
+  bool cross_fade = false;
   var show_data = [];
+  var count_final = [];
   var show_data_Search = [];
   Widget list_show_card_data() {
     double myHeight = MediaQuery.of(context).size.height;
@@ -56,6 +60,9 @@ class _CardPageState extends State<CardPage> {
       builder: (context, value, child) {
         show_data = value.map;
         show_data_Search = value.map;
+        for (var i = 0; i < show_data.length; i++) {
+          count_final.add(show_data[i].count);
+        }
         return value.show_data == 0
             ? const My_loading()
             : value.show_data == 404
@@ -74,74 +81,117 @@ class _CardPageState extends State<CardPage> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Container(
-                                height: myHeight * 0.2,
+                                height: myHeight * 0.13,
                                 width: myWidth,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 5.0),
+                                    horizontal: 15.0, vertical: 10.0),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Row(
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(show_data[index].herbalTea.name),
-                                        GestureDetector(
-                                            onTap: () {},
-                                            child: const Icon(IconlyBold.delete,
-                                                color: Colors.redAccent))
-                                      ],
+                                    Container(
+                                      height: myHeight,
+                                      width: myWidth * 0.25,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        MyNumberScaleAnimation(
-                                          is_price: true,
-                                          price:
-                                              show_data[index].herbalTea.price *
-                                                  count,
-                                        ),
-                                        Row(
-                                          children: [
-                                            GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    count = count + 1;
-                                                  });
-                                                },
-                                                child: const Icon(
-                                                    Icons.add_circle)),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10.0),
-                                              child: MyNumberScaleAnimation(
-                                                number: count,
-                                                duration: 300,
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                show_data[index].herbalTea.name,
                                                 style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            GestureDetector(
-                                                onTap: () {
-                                                  if (count == 1) {
-                                                  } else {
-                                                    setState(() {
-                                                      count = count - 1;
-                                                    });
-                                                  }
-                                                },
+                                              GestureDetector(
+                                                onTap: () {},
                                                 child: const Icon(
-                                                    Icons.remove_circle)),
-                                          ],
-                                        ),
-                                      ],
+                                                  IconlyBold.delete,
+                                                  color: Colors.redAccent,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Text("قیمت : "),
+                                                  MyNumberScaleAnimation(
+                                                    duration: 150,
+                                                    is_price: true,
+                                                    price: show_data[index]
+                                                            .herbalTea
+                                                            .price *
+                                                        count_final[index],
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          count_final[index] =
+                                                              count_final[
+                                                                      index] +
+                                                                  1;
+                                                          cross_fade = true;
+                                                        });
+                                                      },
+                                                      child: Image.asset(
+                                                          "assets/image/add.png",
+                                                          height: 20.0)),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 10.0,
+                                                    ),
+                                                    child:
+                                                        MyNumberScaleAnimation(
+                                                      number:
+                                                          count_final[index],
+                                                      duration: 300,
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      if (count_final[index] ==
+                                                          1) {
+                                                      } else {
+                                                        setState(() {
+                                                          count_final[index] =
+                                                              count_final[
+                                                                      index] -
+                                                                  1;
+                                                          cross_fade = true;
+                                                        });
+                                                      }
+                                                    },
+                                                    child: Image.asset(
+                                                      "assets/image/remove.png",
+                                                      height: 20.0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 )),
@@ -150,5 +200,25 @@ class _CardPageState extends State<CardPage> {
                       );
       },
     );
+  }
+
+  Widget image_show(var data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return Stack(children: [
+      Center(
+        child: CircleAvatar(
+            maxRadius: 30.0,
+            backgroundColor: Colors.greenAccent.withOpacity(0.5)),
+      ),
+      const Center(
+          child: CircleAvatar(maxRadius: 29.0, backgroundColor: Colors.white)),
+      Center(
+        child: CircleAvatar(
+            maxRadius: 28.0,
+            backgroundColor: Colors.greenAccent.withOpacity(0.2)),
+      ),
+      Positioned(child: ImageSliderHerbalTea(data: data.imageHerbaltea))
+    ]);
   }
 }
