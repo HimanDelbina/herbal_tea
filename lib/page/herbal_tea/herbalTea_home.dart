@@ -230,7 +230,10 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                                             .isLike ==
                                                                         true
                                                                     ? delete_herbaltea_faviorate()
-                                                                    : signup_erro_message();
+                                                                    : MyMessage.mySignUpMessage(
+                                                                        context,
+                                                                        "لطفا اول ثبت نام کنید",
+                                                                        1);
                                                           },
                                                           child: MyFaviorateIcon(
                                                               is_fave: show_data[
@@ -315,20 +318,6 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
       MyMessage.mySnackbarMessage(
           context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
     }
-  }
-
-  void signup_erro_message() {
-    ThemeBloc theme = Provider.of<ThemeBloc>(context);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: const Duration(seconds: 3),
-        action: SnackBarAction(
-            label: "ثبت نام",
-            textColor: theme.text,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SignUp()));
-            }),
-        content: const Text('لطفا اول ثبت نام کنید')));
   }
 
   void delete_herbaltea_faviorate() async {
