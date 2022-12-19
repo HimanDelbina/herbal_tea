@@ -270,7 +270,6 @@ class _HomePageState extends State<HomePage> {
                                             : "http://swaaaa.ir:7777" +
                                                 value.map[index].image
                                                     .toString(),
-                                      
                                       )),
                                   Text(value.map[index].name.toString(),
                                       style: TextStyle(

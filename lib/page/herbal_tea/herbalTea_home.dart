@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
+import 'package:sara_plant/components/my_search.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/provider/get_herbaltea.dart';
 import 'package:sara_plant/static/message_static.dart';
 import '../../components/error_get_data.dart';
 import '../../components/image_slider.dart';
-import '../../components/search_component.dart';
 import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
 import '../../static/user_static.dart';
 import '../../provider/theme.dart';
-import '../register/signup.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 
 class HerbalTeaHome extends StatefulWidget {
@@ -63,36 +62,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         body: SafeArea(
           child: Column(
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: Container(
-                  height: myHeight * 0.07,
-                  child: TextFormField(
-                      onChanged: (value) {
-                        setState(() {
-                          show_data = SearchComponent.search(
-                              show_data_Search, value, "name");
-                        });
-                      },
-                      cursorColor: theme.cursorSearch,
-                      decoration: InputDecoration(
-                          labelText: "جستجو",
-                          hintText: "جستجو",
-                          hintStyle: TextStyle(color: theme.unselectItem),
-                          labelStyle: TextStyle(color: theme.text),
-                          suffixIconColor: theme.iconItem,
-                          suffixIcon:
-                              Icon(IconlyLight.search, color: theme.iconItem),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: theme.focusBorderSearch)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: theme.enableBorderSearch)),
-                          border: const OutlineInputBorder())),
-                ),
-              ),
+              MySearch(data: show_data, backup_data: show_data_Search),
               Expanded(child: listViewShow()),
             ],
           ),
@@ -194,84 +164,14 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                             color: theme.text)),
                                                     Row(
                                                       children: [
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                herbaltea_id =
-                                                                    show_data[
-                                                                            index]
-                                                                        .id;
-                                                                image_select =
-                                                                    '';
-                                                                value.map[index]
-                                                                            .imageHerbaltea!.length ==
-                                                                        0
-                                                                    ? ""
-                                                                    : image_select = Helper
-                                                                            .imageUrl +
-                                                                        value
-                                                                            .map[index]
-                                                                            .imageHerbaltea![0]
-                                                                            .image
-                                                                            .toString();
-                                                              });
-                                                              if (SharedHelper
-                                                                      .my_token !=
-                                                                  null) {
-                                                                add_to_card();
-                                                              }
-                                                            },
-                                                            child: const Icon(
-                                                                IconlyLight
-                                                                    .bag)),
+                                                        AddToCartHerbalTea(
+                                                            show_data[index],
+                                                            value.map[index]),
                                                         const SizedBox(
                                                             width: 10.0),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              herbaltea_id =
-                                                                  show_data[
-                                                                          index]
-                                                                      .id;
-                                                              image_select = '';
-                                                              value
-                                                                          .map[
-                                                                              index]
-                                                                          .imageHerbaltea!
-                                                                          .length ==
-                                                                      0
-                                                                  ? ""
-                                                                  : image_select = Helper
-                                                                          .imageUrl +
-                                                                      value
-                                                                          .map[
-                                                                              index]
-                                                                          .imageHerbaltea![
-                                                                              0]
-                                                                          .image
-                                                                          .toString();
-                                                            });
-                                                            SharedHelper.my_token !=
-                                                                        null &&
-                                                                    show_data[index]
-                                                                            .isLike ==
-                                                                        false
-                                                                ? save_herbaltea()
-                                                                : show_data[index]
-                                                                            .isLike ==
-                                                                        true
-                                                                    ? delete_herbaltea_faviorate()
-                                                                    : MyMessage.mySignUpMessage(
-                                                                        context,
-                                                                        "لطفا اول ثبت نام کنید",
-                                                                        1);
-                                                          },
-                                                          child: MyFaviorateIcon(
-                                                              is_fave: show_data[
-                                                                          index]
-                                                                      .isLike ==
-                                                                  true),
-                                                        ),
+                                                        LikeHerbalTea(
+                                                            show_data[index],
+                                                            value.map[index]),
                                                       ],
                                                     ),
                                                   ],
@@ -284,30 +184,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                     ),
                                   ),
                                 ),
-                                show_data[index].ourSuggestion
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            height: myHeight * 0.025,
-                                            width: myWidth * 0.05,
-                                            padding: const EdgeInsets.all(3.0),
-                                            decoration: const BoxDecoration(
-                                                color: Colors.amber,
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(5.0),
-                                                    bottomRight:
-                                                        Radius.circular(5.0))),
-                                            child: const Center(
-                                              child: Icon(IconlyBold.star,
-                                                  size: 8.0),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : const SizedBox()
+                                OurSuggestion(show_data[index]),
                               ],
                             ),
                           )),
@@ -315,6 +192,72 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                   },
                 );
     });
+  }
+
+  Widget LikeHerbalTea(var data, var image_data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return GestureDetector(
+        onTap: () {
+          setState(() {
+            herbaltea_id = data.id;
+            image_select = '';
+            image_data.imageHerbaltea!.length == 0
+                ? ""
+                : image_select = Helper.imageUrl +
+                    image_data.imageHerbaltea![0].image.toString();
+          });
+          SharedHelper.my_token != null && data.isLike == false
+              ? save_herbaltea()
+              : data.isLike == true
+                  ? delete_herbaltea_faviorate()
+                  : MyMessage.mySignUpMessage(
+                      context, "لطفا اول ثبت نام کنید", 1);
+        },
+        child: MyFaviorateIcon(is_fave: data.isLike == true));
+  }
+
+  Widget AddToCartHerbalTea(var data, var image_data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return GestureDetector(
+        onTap: () {
+          setState(() {
+            herbaltea_id = data.id;
+            image_select = '';
+            image_data.imageHerbaltea!.length == 0
+                ? ""
+                : image_select = Helper.imageUrl +
+                    image_data.imageHerbaltea![0].image.toString();
+          });
+          if (SharedHelper.my_token != null) {
+            add_to_card();
+          }
+        },
+        child: const Icon(IconlyLight.bag));
+  }
+
+  Widget OurSuggestion(var data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return data.ourSuggestion
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                height: myHeight * 0.025,
+                width: myWidth * 0.05,
+                padding: const EdgeInsets.all(3.0),
+                decoration: const BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5.0),
+                        bottomRight: Radius.circular(5.0))),
+                child: const Center(child: Icon(IconlyBold.star, size: 8.0)),
+              )
+            ],
+          )
+        : const SizedBox();
   }
 
   int? herbaltea_id;

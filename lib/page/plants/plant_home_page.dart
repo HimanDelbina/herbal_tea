@@ -4,10 +4,9 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
-import 'package:sara_plant/components/search_component.dart';
+import 'package:sara_plant/components/my_search.dart';
 import 'package:sara_plant/static/user_static.dart';
 import 'package:sara_plant/page/plants/plant_select_new.dart';
-import 'package:sara_plant/page/register/signup.dart';
 import 'package:sara_plant/provider/animation_controller.dart';
 import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';
@@ -71,47 +70,11 @@ class _PlantHomeState extends State<PlantHome> {
           elevation: 0.0),
       body: Column(
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-            child: Container(
-              height: myHeight * 0.07,
-              child: TextFormField(
-                  onChanged: (value) {
-                    setState(() {
-                      show_data = SearchComponent.search(
-                          show_data_Search, value, "name");
-                    });
-                  },
-                  cursorColor: theme.cursorSearch,
-                  decoration: InputDecoration(
-                      labelText: "جستجو",
-                      hintText: "جستجو",
-                      hintStyle: TextStyle(color: theme.unselectItem),
-                      labelStyle: TextStyle(color: theme.text),
-                      suffixIconColor: theme.iconItem,
-                      suffixIcon:
-                          Icon(IconlyLight.search, color: theme.iconItem),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: theme.focusBorderSearch)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: theme.enableBorderSearch)),
-                      border: const OutlineInputBorder())),
-            ),
-          ),
+          MySearch(data: show_data, backup_data: show_data_Search),
           Expanded(child: listViewShow())
         ],
       ),
     );
-  }
-
-  Widget iconItemShow(double height, double width, String image, Color color,
-      VoidCallback ontap) {
-    return GestureDetector(
-        onTap: ontap,
-        child: Image.asset(image, height: height, width: width, color: color));
   }
 
   String select_image = "";
@@ -175,12 +138,13 @@ class _PlantHomeState extends State<PlantHome> {
                                             padding: const EdgeInsets.all(7.0),
                                             child: Center(
                                               child: Image.network(
-                                                  show_data[index].image == null
-                                                      ? ""
-                                                      : Helper.imageUrl +
-                                                          show_data[index]
-                                                              .image
-                                                              .toString()),
+                                                show_data[index].image == null
+                                                    ? ""
+                                                    : Helper.imageUrl +
+                                                        show_data[index]
+                                                            .image
+                                                            .toString(),
+                                              ),
                                             ),
                                           ),
                                           const VerticalDivider(),
@@ -195,89 +159,30 @@ class _PlantHomeState extends State<PlantHome> {
                                                     MainAxisAlignment
                                                         .spaceAround,
                                                 children: [
-                                                  Text(show_data[index].name,
-                                                      style: TextStyle(
-                                                          color: theme.text,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
                                                   Text(
-                                                      show_data[index]
-                                                          .mazaj
-                                                          .name,
-                                                      style: const TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 12.0)),
+                                                    show_data[index].name,
+                                                    style: TextStyle(
+                                                      color: theme.text,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    show_data[index].mazaj.name,
+                                                    style: const TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 12.0,
+                                                    ),
+                                                  ),
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      SliderTheme(
-                                                          data: SliderThemeData(
-                                                              inactiveTrackColor:
-                                                                  Colors.green
-                                                                      .withOpacity(
-                                                                          0.3),
-                                                              activeTrackColor:
-                                                                  Colors.green,
-                                                              thumbColor:
-                                                                  Colors.green,
-                                                              trackHeight: 1.0,
-                                                              thumbShape:
-                                                                  const RoundSliderThumbShape(
-                                                                      enabledThumbRadius:
-                                                                          1),
-                                                              overlayShape:
-                                                                  const RoundSliderOverlayShape(
-                                                                      overlayRadius:
-                                                                          1)),
-                                                          child: Container(
-                                                              width:
-                                                                  myWidth * 0.2,
-                                                              child: Slider(
-                                                                  value: value
-                                                                      .map[
-                                                                          index]
-                                                                      .ranking!
-                                                                      .toDouble(),
-                                                                  onChanged:
-                                                                      (value) {},
-                                                                  min: 0,
-                                                                  max: 5))),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            plant_id =
-                                                                show_data[index]
-                                                                    .id;
-                                                            select_image = Helper
-                                                                    .imageUrl +
-                                                                show_data[index]
-                                                                    .image
-                                                                    .toString();
-                                                          });
-                                                          SharedHelper.my_token !=
-                                                                      null &&
-                                                                  show_data[index]
-                                                                          .isLike ==
-                                                                      false
-                                                              ? save_plant()
-                                                              : show_data[index]
-                                                                          .isLike ==
-                                                                      true
-                                                                  ? delete_plant_faviorate()
-                                                                  : MyMessage
-                                                                      .mySignUpMessage(
-                                                                          context,
-                                                                          "لطفا اول ثبت نام کنید",
-                                                                          1);
-                                                        },
-                                                        child: MyFaviorateIcon(
-                                                            is_fave: show_data[
-                                                                        index]
-                                                                    .isLike ==
-                                                                true),
-                                                      ),
+                                                      SliderPlant(value
+                                                          .map[index].ranking!),
+                                                      LikePlant(
+                                                          show_data[index]),
                                                     ],
                                                   ),
                                                 ],
@@ -288,34 +193,7 @@ class _PlantHomeState extends State<PlantHome> {
                                       ),
                                     ),
                                   ),
-                                  show_data[index].ourSuggestion
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              height: myHeight * 0.025,
-                                              width: myWidth * 0.05,
-                                              padding:
-                                                  const EdgeInsets.all(3.0),
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.amber,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5.0))),
-                                              child: const Center(
-                                                child: Icon(IconlyBold.star,
-                                                    size: 8.0),
-                                              ),
-                                            )
-                                          ],
-                                        )
-                                      : const SizedBox()
+                                  OurSuggestion(show_data[index]),
                                 ],
                               ),
                             ),
@@ -326,6 +204,68 @@ class _PlantHomeState extends State<PlantHome> {
         });
       },
     );
+  }
+
+  Widget LikePlant(var data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return GestureDetector(
+        onTap: () {
+          setState(() {
+            plant_id = data.id;
+            select_image = Helper.imageUrl + data.image.toString();
+          });
+          SharedHelper.my_token != null && data.isLike == false
+              ? save_plant()
+              : data.isLike == true
+                  ? delete_plant_faviorate()
+                  : MyMessage.mySignUpMessage(
+                      context, "لطفا اول ثبت نام کنید", 1);
+        },
+        child: MyFaviorateIcon(is_fave: data.isLike == true));
+  }
+
+  Widget SliderPlant(double data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return SliderTheme(
+        data: SliderThemeData(
+            inactiveTrackColor: Colors.green.withOpacity(0.3),
+            activeTrackColor: Colors.green,
+            thumbColor: Colors.green,
+            trackHeight: 1.0,
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 1),
+            overlayShape: const RoundSliderOverlayShape(overlayRadius: 1)),
+        child: Container(
+            width: myWidth * 0.2,
+            child: Slider(
+                value: data.toDouble(),
+                onChanged: (value) {},
+                min: 0,
+                max: 5)));
+  }
+
+  Widget OurSuggestion(var data) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return data.ourSuggestion
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                height: myHeight * 0.025,
+                width: myWidth * 0.05,
+                padding: const EdgeInsets.all(3.0),
+                decoration: const BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5.0),
+                        bottomRight: Radius.circular(5.0))),
+                child: const Center(child: Icon(IconlyBold.star, size: 8.0)),
+              )
+            ],
+          )
+        : const SizedBox();
   }
 
   void save_plant() async {

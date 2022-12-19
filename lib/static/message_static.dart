@@ -30,7 +30,7 @@ class MyMessage {
                 : Container(
                     height: myHeight * 0.05,
                     width: myWidth * 0.1,
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(1.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
