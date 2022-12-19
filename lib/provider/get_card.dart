@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:sara_plant/components/helper.dart';
-import 'package:sara_plant/components/shared_helper.dart';
 import 'package:sara_plant/model/new/card_model.dart';
 import '../model/new/herbaltea_model.dart';
+import '../static/helper.dart';
+import '../static/shared_helper.dart';
 
 class CardGet extends ChangeNotifier {
   List<CardModel> _map = [];

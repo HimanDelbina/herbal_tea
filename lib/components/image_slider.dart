@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:sara_plant/components/helper.dart';
 import 'package:sara_plant/model/new/herbaltea_model.dart';
+
+import '../static/helper.dart';
 
 class ImageSlider extends StatefulWidget {
   const ImageSlider({Key? key}) : super(key: key);

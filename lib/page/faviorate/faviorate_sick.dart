@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
-
-import '../../components/helper.dart';
-import '../../components/user_static.dart';
+import '../../static/component_static.dart';
+import '../../static/helper.dart';
+import '../../static/user_static.dart';
 import '../../model/faviorate_sick_model.dart';
 import '../../provider/theme.dart';
 
@@ -102,18 +101,6 @@ class _FaviorateSickState extends State<FaviorateSick> {
     }
   }
 
-  void delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('با موفقیت از لیست حذف شد')));
-  }
-
-  void error_delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه از لیست حذف نشد')));
-  }
-
   int? id_data_for_delete;
 
   Future<HistorySickModel?> delete_faviorate_sick(int id_data) async {
@@ -122,10 +109,10 @@ class _FaviorateSickState extends State<FaviorateSick> {
         id_data.toString();
     var res = await Helper.getApi(url);
     if (res.statusCode == 200) {
-      delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
       get_faviorate_sick(UserStaticFile.user_id!);
     } else {
-      error_delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
     }
   }
 }

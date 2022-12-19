@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:sara_plant/components/user_static.dart';
+import 'package:sara_plant/static/user_static.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helper.dart';

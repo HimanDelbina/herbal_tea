@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sara_plant/components/error_get_data.dart';
-import '../../components/helper.dart';
 import '../../model/new/sick_select_model.dart';
+import '../../static/helper.dart';
 
 class SickSelect extends StatefulWidget {
   int? id;

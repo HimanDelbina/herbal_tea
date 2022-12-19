@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:sara_plant/components/shared_helper.dart';
+import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/shared_helper.dart';
 
-import '../../components/helper.dart';
-import '../../components/user_static.dart';
+import '../../static/helper.dart';
+import '../../static/user_static.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -85,21 +86,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void message_create_user() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1), content: Text('user create')));
-  }
-
-  void message_error_create_user() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1), content: Text('user not create')));
-  }
-
-  void message_already_create_user() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1), content: Text('user already')));
-  }
-
   void create_user() async {
     String url = Helper.url + "person/create_user";
     var body = json.encode({
@@ -124,11 +110,12 @@ class _SignUpState extends State<SignUp> {
           utf8.decode(result["payload"]["phone"].codeUnits);
       UserStaticFile.address =
           utf8.decode(result["payload"]["address"].codeUnits);
-      message_create_user();
+      MyMessage.mySnackbarMessage(context, "ثبت نام شما با موفقیت انجام شد", 1);
     } else if (res.statusCode == 208) {
-      message_already_create_user();
+      MyMessage.mySnackbarMessage(context, "این شماره موبایل قبلا ثبت شده", 1);
     } else {
-      message_error_create_user();
+      MyMessage.mySnackbarMessage(
+          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
     }
   }
 }

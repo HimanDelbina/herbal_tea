@@ -4,9 +4,9 @@ import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/page/plants/plant_khavas.dart';
 import 'package:sara_plant/page/plants/plant_select.dart';
 import 'package:sara_plant/page/plants/plant_zarar.dart';
-import '../../components/helper.dart';
 import '../../model/new/plant_select_model.dart';
 import '../../provider/theme.dart';
+import '../../static/helper.dart';
 
 class PlantSelectNew extends StatefulWidget {
   int? id;

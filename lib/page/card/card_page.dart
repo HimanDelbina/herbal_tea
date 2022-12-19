@@ -7,7 +7,7 @@ import 'package:sara_plant/provider/get_card.dart';
 import '../../components/error_page.dart';
 import '../../components/image_slider.dart';
 import '../../components/sign_up_error.dart';
-import '../../components/user_static.dart';
+import '../../static/user_static.dart';
 import '../../provider/theme.dart';
 
 class CardPage extends StatefulWidget {

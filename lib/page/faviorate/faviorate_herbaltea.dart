@@ -6,10 +6,12 @@ import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
-import 'package:sara_plant/components/user_static.dart';
-import '../../components/helper.dart';
+import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/user_static.dart';
+
 import '../../model/faviorate_herbattea_model.dart';
 import '../../provider/theme.dart';
+import '../../static/helper.dart';
 
 class FaviorateHerbalTea extends StatefulWidget {
   const FaviorateHerbalTea({super.key});
@@ -36,8 +38,7 @@ class _FaviorateHerbalTeaState extends State<FaviorateHerbalTea> {
             ? ErrorPage(
                 image: "assets/animation/empty.json",
                 text: "لیست مورد علاقه شما خالی است",
-                is_rich: false
-                )
+                is_rich: false)
             : faviorate_data.length == 0
                 ? const My_loading()
                 : Padding(
@@ -103,18 +104,6 @@ class _FaviorateHerbalTeaState extends State<FaviorateHerbalTea> {
     }
   }
 
-  void delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('با موفقیت از لیست حذف شد')));
-  }
-
-  void error_delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه از لیست حذف نشد')));
-  }
-
   int? id_data_for_delete;
 
   Future<HerbalTeaFaviorateModel?> delete_faviorate_herbaltea(
@@ -124,10 +113,11 @@ class _FaviorateHerbalTeaState extends State<FaviorateHerbalTea> {
         id_data.toString();
     var res = await Helper.getApi(url);
     if (res.statusCode == 200) {
-      delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+
       get_faviorate_herbaltea(UserStaticFile.user_id!);
     } else {
-      error_delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
     }
   }
 }

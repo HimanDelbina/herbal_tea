@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sara_plant/components/error_get_data.dart';
-import 'package:sara_plant/components/helper.dart';
 import 'package:sara_plant/components/hover_image_animation.dart';
 import 'package:sara_plant/page/start_page.dart';
+import '../../components/error_get_data.dart';
 import '../../provider/get_toturial.dart';
 import '../../provider/theme.dart';
+import '../../static/helper.dart';
 
 class ToturialPage extends StatefulWidget {
   const ToturialPage({Key? key}) : super(key: key);

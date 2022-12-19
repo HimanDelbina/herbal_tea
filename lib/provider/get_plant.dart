@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:sara_plant/components/shared_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../components/helper.dart';
 import '../model/new/plant_first_model.dart';
+import '../static/helper.dart';
+import '../static/shared_helper.dart';
 
 class PlantGet extends ChangeNotifier {
   List<PlantFirstModel> _map = [];

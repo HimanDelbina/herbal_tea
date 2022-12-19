@@ -5,14 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
 import 'package:sara_plant/components/search_component.dart';
-import 'package:sara_plant/components/shared_helper.dart';
-import 'package:sara_plant/components/user_static.dart';
+import 'package:sara_plant/static/user_static.dart';
 import 'package:sara_plant/page/plants/plant_select_new.dart';
 import 'package:sara_plant/page/register/signup.dart';
 import 'package:sara_plant/provider/animation_controller.dart';
-import '../../components/helper.dart';
 import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';
+import '../../static/component_static.dart';
+import '../../static/helper.dart';
+import '../../static/shared_helper.dart';
 
 class PlantHome extends StatefulWidget {
   const PlantHome({Key? key}) : super(key: key);
@@ -331,40 +332,17 @@ class _PlantHomeState extends State<PlantHome> {
     );
   }
 
-  void create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('گیاه به لیست مورد علاقه ها اضافه شد')));
-  }
-
-  void error_create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(255, 160, 0, 0),
-        content: Text('این گیاه قبلا به لیست مورد علاقه ها اضافه شده')));
-  }
-
   void save_plant() async {
     String url = Helper.url + "history/post_faviorate_plant";
     var body = json.encode({"user": UserStaticFile.user_id, "plant": plant_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'گیاه به لیست مورد علاقه ها اضافه شد', 1);
     } else {
-      error_create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'این گیاه قبلا به لیست مورد علاقه ها اضافه شده', 1);
     }
-  }
-
-  void delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('با موفقیت از لیست حذف شد')));
-  }
-
-  void error_delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه از لیست حذف نشد')));
   }
 
   int? id_data_for_delete;
@@ -374,9 +352,9 @@ class _PlantHomeState extends State<PlantHome> {
     var body = json.encode({"user": UserStaticFile.user_id, "plant": plant_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
     } else {
-      error_delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
     }
   }
 }

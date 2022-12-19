@@ -4,15 +4,16 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/image_slider.dart';
-import 'package:sara_plant/components/shared_helper.dart';
 import 'package:sara_plant/page/herbal_tea/herbalTea_home.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/page/plants/plant_select_new.dart';
 import 'package:sara_plant/page/sick/sick_home.dart';
 import 'package:sara_plant/provider/get_herbaltea.dart';
+import 'package:sara_plant/static/component_static.dart';
 import '../../components/page_route.dart';
 import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';
+import '../../static/shared_helper.dart';
 import '../plants/plant_home_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,11 +25,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int is_exit = 0;
-  void exit_message() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text("برای خروج دو بار کلیک کنید")));
-  }
 
   bool startAnimation = false;
   @override
@@ -58,7 +54,7 @@ class _HomePageState extends State<HomePage> {
         if (is_exit == 2) {
           exit(1);
         } else {
-          exit_message();
+          MyMessage.mySnackbarMessage(context, "برای خروج دو بار کلیک کنید", 1);
         }
         return false;
       },
@@ -108,11 +104,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  void my_messenger() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1), content: Text('Processing Data')));
   }
 
   Widget header_Item_home(
@@ -279,12 +270,7 @@ class _HomePageState extends State<HomePage> {
                                             : "http://swaaaa.ir:7777" +
                                                 value.map[index].image
                                                     .toString(),
-                                        // image: Image.network(
-                                        //     value.map[index].image == null
-                                        //         ? ""
-                                        //         : "http://192.168.1.100:7777" +
-                                        //             value.map[index].image
-                                        //                 .toString()),
+                                      
                                       )),
                                   Text(value.map[index].name.toString(),
                                       style: TextStyle(

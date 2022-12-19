@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
-import 'package:sara_plant/components/shared_helper.dart';
 import 'package:sara_plant/page/card/card_page.dart';
 import 'package:sara_plant/page/faviorate/faviorate_page.dart';
 import 'package:sara_plant/page/home/home.dart';
@@ -11,6 +9,7 @@ import 'package:sara_plant/provider/animation_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/my_drawer.dart';
 import '../provider/theme.dart';
+import '../static/shared_helper.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);

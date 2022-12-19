@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/page/home/home.dart';
 import 'package:sara_plant/page/toturial/toturial_page.dart';
+import 'package:sara_plant/static/component_static.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../provider/theme.dart';
 import 'start_page.dart';
@@ -44,11 +45,6 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   }
 
   int is_exit = 0;
-  void exit_message() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text("برای خروج دو بار کلیک کنید")));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +59,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
         if (is_exit == 2) {
           exit(1);
         } else {
-          exit_message();
+          MyMessage.mySnackbarMessage(context, "برای خروج دو بار کلیک کنید", 1);
         }
         return false;
       },

@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_data.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_khavas.dart';
-import '../../components/helper.dart';
 import '../../model/new/herbaltea_select_model.dart';
 import '../../provider/theme.dart';
+import '../../static/helper.dart';
 import 'herbaltea_zarar.dart';
 
 class HerbalTeaSelect extends StatefulWidget {

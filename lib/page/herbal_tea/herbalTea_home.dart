@@ -2,15 +2,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
-import 'package:sara_plant/components/helper.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
-import 'package:sara_plant/components/shared_helper.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/provider/get_herbaltea.dart';
+import 'package:sara_plant/static/component_static.dart';
 import '../../components/error_get_data.dart';
 import '../../components/image_slider.dart';
 import '../../components/search_component.dart';
-import '../../components/user_static.dart';
+import '../../static/helper.dart';
+import '../../static/shared_helper.dart';
+import '../../static/user_static.dart';
 import '../../provider/theme.dart';
 import '../register/signup.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -282,26 +283,6 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     });
   }
 
-  void create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('دمنوش به لیست مورد علاقه ها اضافه شد')));
-  }
-
-  void already_create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(255, 160, 0, 0),
-        content: Text('این دمنوش قبلا به لیست مورد علاقه ها اضافه شده')));
-  }
-
-  void error_create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(255, 160, 0, 0),
-        content: Text('در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید')));
-  }
-
   int? herbaltea_id;
   void save_herbaltea() async {
     String url = Helper.url + "history/post_faviorate_herbaltea";
@@ -309,25 +290,15 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         .encode({"user": UserStaticFile.user_id!, "herbaltea": herbaltea_id});
     var res = await Helper.postApi(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'دمنوش به لیست مورد علاقه ها اضافه شد', 1);
     } else if ((res.statusCode == 208)) {
-      already_create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'این دمنوش قبلا به لیست مورد علاقه ها اضافه شده', 1);
     } else {
-      error_create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
     }
-  }
-
-  void post_card() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('دمنوش به سبد خرید اضافه شد')));
-  }
-
-  void already_card() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(255, 160, 0, 0),
-        content: Text('این دمنوش قبلا به سبد خرید اضافه شده')));
   }
 
   void add_to_card() async {
@@ -336,11 +307,13 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         .encode({"user": UserStaticFile.user_id!, "herbal_tea": herbaltea_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      post_card();
+      MyMessage.mySnackbarMessage(context, 'دمنوش به سبد خرید اضافه شد', 1);
     } else if ((res.statusCode == 208)) {
-      already_card();
+      MyMessage.mySnackbarMessage(
+          context, 'این دمنوش قبلا به سبد خرید اضافه شده', 1);
     } else {
-      error_create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
     }
   }
 
@@ -364,21 +337,9 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         .encode({"user": UserStaticFile.user_id!, "herbaltea": herbaltea_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
     } else {
-      error_delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
     }
-  }
-
-  void delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('با موفقیت از لیست حذف شد')));
-  }
-
-  void error_delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه از لیست حذف نشد')));
   }
 }

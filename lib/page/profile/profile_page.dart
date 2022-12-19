@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sara_plant/components/error_page.dart';
-import 'package:sara_plant/components/shared_helper.dart';
-import 'package:sara_plant/components/user_static.dart';
+import 'package:sara_plant/static/shared_helper.dart';
+import 'package:sara_plant/static/user_static.dart';
 import 'package:sara_plant/page/register/signup.dart';
 
 import '../../provider/animation_controller.dart';

@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:sara_plant/components/shared_helper.dart';
+import 'package:sara_plant/static/shared_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Helper {

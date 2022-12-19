@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
 import 'package:sara_plant/page/sick/sick_select.dart';
 import 'package:sara_plant/provider/get_sick.dart';
+import 'package:sara_plant/static/component_static.dart';
 import '../../components/error_get_data.dart';
-import '../../components/helper.dart';
 import '../../components/search_component.dart';
-import '../../components/shared_helper.dart';
-import '../../components/user_static.dart';
+import '../../static/helper.dart';
+import '../../static/shared_helper.dart';
+import '../../static/user_static.dart';
 import '../../provider/theme.dart';
 import '../register/signup.dart';
 
@@ -250,37 +251,20 @@ class _SickHomeState extends State<SickHome> {
         child: Image.asset(image, height: height, width: width, color: color));
   }
 
-  void create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('بیماری به لیست مورد علاقه ها اضافه شد')));
-  }
-
-  void already_create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(255, 160, 0, 0),
-        content: Text('این بیماری قبلا به لیست مورد علاقه ها اضافه شده')));
-  }
-
-  void error_create_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(255, 160, 0, 0),
-        content: Text('در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید')));
-  }
-
   int? sick_id;
   void save_sick() async {
     String url = Helper.url + "history/post_faviorate_sick";
     var body = json.encode({"user": UserStaticFile.user_id!, "sick": sick_id});
     var res = await Helper.postApi(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'بیماری به لیست مورد علاقه ها اضافه شد', 1);
     } else if ((res.statusCode == 208)) {
-      already_create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'این بیماری قبلا به لیست مورد علاقه ها اضافه شده', 1);
     } else {
-      error_create_favorite();
+      MyMessage.mySnackbarMessage(
+          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
     }
   }
 
@@ -303,21 +287,9 @@ class _SickHomeState extends State<SickHome> {
     var body = json.encode({"user": UserStaticFile.user_id!, "sick": sick_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
     } else {
-      error_delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
     }
-  }
-
-  void delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('با موفقیت از لیست حذف شد')));
-  }
-
-  void error_delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه از لیست حذف نشد')));
   }
 }

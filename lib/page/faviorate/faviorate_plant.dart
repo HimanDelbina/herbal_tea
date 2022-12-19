@@ -6,9 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
+import 'package:sara_plant/static/component_static.dart';
 
-import '../../components/helper.dart';
-import '../../components/user_static.dart';
+import '../../static/helper.dart';
+import '../../static/user_static.dart';
 import '../../model/faviorate_plant_model.dart';
 import '../../provider/theme.dart';
 import '../plants/plant_select_new.dart';
@@ -129,26 +130,6 @@ class _FavioratePlantState extends State<FavioratePlant> {
       print('Roles List NOK');
     }
   }
-
-  void long_press() {
-    Tooltip(
-      message: 'Text',
-      child: const Text("دارو گیاهی"),
-    );
-  }
-
-  void delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('با موفقیت از لیست حذف شد')));
-  }
-
-  void error_delete_favorite() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه از لیست حذف نشد')));
-  }
-
   int? id_data_for_delete;
 
   Future<FavioratePlantModel?> delete_faviorate_plant(int id_data) async {
@@ -157,10 +138,11 @@ class _FavioratePlantState extends State<FavioratePlant> {
         id_data.toString();
     var res = await Helper.getApi(url);
     if (res.statusCode == 200) {
-      delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+      // delete_favorite();
       get_faviorate_plant(UserStaticFile.user_id!);
     } else {
-      error_delete_favorite();
+      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
     }
   }
 }

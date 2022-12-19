@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
-import 'package:sara_plant/components/user_static.dart';
+import 'package:sara_plant/static/user_static.dart';
 import 'package:sara_plant/model/new/quiz_model.dart';
 import 'package:sara_plant/page/mazaj/answer_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../components/helper.dart';
 import '../../provider/theme.dart';
-import '../start_page.dart';
+import '../../static/component_static.dart';
+import '../../static/helper.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -185,18 +184,6 @@ class _QuizPageState extends State<QuizPage> {
     } else {}
   }
 
-  void message_create_mazaj() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('مزاج شما با موفقیت تعیین شد')));
-  }
-
-  void message_error_mazaj() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('متاسفانه خطایی رخ داده لطفا دوباره امتحان کنید')));
-  }
-
   var answer_data_get;
   String? mazaj_select;
   void answer() async {
@@ -214,13 +201,15 @@ class _QuizPageState extends State<QuizPage> {
         answer_data_get = result;
       });
       print(result);
-      message_create_mazaj();
+      MyMessage.mySnackbarMessage(context, 'مزاج شما با موفقیت تعیین شد', 1);
+
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => AnswerPage(data: answer_data_get)));
     } else {
-      message_error_mazaj();
+      MyMessage.mySnackbarMessage(
+          context, 'متاسفانه خطایی رخ داده لطفا دوباره امتحان کنید', 1);
     }
   }
 

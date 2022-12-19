@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:sara_plant/components/helper.dart';
-import 'package:sara_plant/components/shared_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../model/new/herbaltea_model.dart';
+import '../static/helper.dart';
+import '../static/shared_helper.dart';
 
 class HerbalTeaGet extends ChangeNotifier {
   List<HerbalTeaModel> _map = [];

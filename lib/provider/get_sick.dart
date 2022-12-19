@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import '../components/helper.dart';
-import '../components/shared_helper.dart';
 import '../model/new/sick_model.dart';
+import '../static/helper.dart';
+import '../static/shared_helper.dart';
 
 class SickGet extends ChangeNotifier {
   List<SickModel> _map = [];

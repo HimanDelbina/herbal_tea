@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
-import 'package:sara_plant/model/new/plant_select_model.dart';
-import 'package:sara_plant/page/plants/plant_khavas.dart';
-import 'package:sara_plant/page/plants/plant_zarar.dart';
 import '../../components/error_get_data.dart';
-import '../../components/helper.dart';
 import '../../provider/theme.dart';
 
 class PlantSelect extends StatefulWidget {
