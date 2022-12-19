@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 import 'package:sara_plant/static/shared_helper.dart';
 
 import '../../static/helper.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/page/home/home.dart';
 import 'package:sara_plant/page/toturial/toturial_page.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../provider/theme.dart';
 import 'start_page.dart';

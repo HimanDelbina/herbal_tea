@@ -6,7 +6,7 @@ import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 import 'package:sara_plant/static/user_static.dart';
 
 import '../../model/faviorate_herbattea_model.dart';

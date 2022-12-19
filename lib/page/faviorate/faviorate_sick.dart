@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
-import '../../static/component_static.dart';
+import '../../static/message_static.dart';
 import '../../static/helper.dart';
 import '../../static/user_static.dart';
 import '../../model/faviorate_sick_model.dart';

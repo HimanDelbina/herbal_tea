@@ -11,7 +11,7 @@ import 'package:sara_plant/page/register/signup.dart';
 import 'package:sara_plant/provider/animation_controller.dart';
 import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';
-import '../../static/component_static.dart';
+import '../../static/message_static.dart';
 import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
 
@@ -114,6 +114,7 @@ class _PlantHomeState extends State<PlantHome> {
         child: Image.asset(image, height: height, width: width, color: color));
   }
 
+  String select_image = "";
   var show_data = [];
   var show_data_Search = [];
   int plant_id = 0;
@@ -249,6 +250,11 @@ class _PlantHomeState extends State<PlantHome> {
                                                             plant_id =
                                                                 show_data[index]
                                                                     .id;
+                                                            select_image = Helper
+                                                                    .imageUrl +
+                                                                show_data[index]
+                                                                    .image
+                                                                    .toString();
                                                           });
                                                           SharedHelper.my_token !=
                                                                       null &&
@@ -327,11 +333,11 @@ class _PlantHomeState extends State<PlantHome> {
     var body = json.encode({"user": UserStaticFile.user_id, "plant": plant_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      MyMessage.mySnackbarMessage(
-          context, 'گیاه به لیست مورد علاقه ها اضافه شد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'گیاه به لیست مورد علاقه ها اضافه شد', select_image, 1);
     } else {
-      MyMessage.mySnackbarMessage(
-          context, 'این گیاه قبلا به لیست مورد علاقه ها اضافه شده', 1);
+      MyMessage.mySnackbarMessageWithImage(context,
+          'این گیاه قبلا به لیست مورد علاقه ها اضافه شده', select_image, 1);
     }
   }
 
@@ -342,9 +348,11 @@ class _PlantHomeState extends State<PlantHome> {
     var body = json.encode({"user": UserStaticFile.user_id, "plant": plant_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'با موفقیت از لیست حذف شد', select_image, 1);
     } else {
-      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'متاسفانه از لیست حذف نشد', select_image, 1);
     }
   }
 }

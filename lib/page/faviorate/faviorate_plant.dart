@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 
 import '../../static/helper.dart';
 import '../../static/user_static.dart';
@@ -55,6 +55,7 @@ class _FavioratePlantState extends State<FavioratePlant> {
         : const SignUpError();
   }
 
+  String image_select = '';
   Widget item(var data) {
     double myHeight = MediaQuery.of(context).size.height;
     double myWidth = MediaQuery.of(context).size.width;
@@ -96,6 +97,8 @@ class _FavioratePlantState extends State<FavioratePlant> {
                     onTap: () {
                       setState(() {
                         id_data_for_delete = data[index].id;
+                        image_select =
+                            Helper.imageUrl + data[index].plant.image;
                       });
                       delete_faviorate_plant(id_data_for_delete!);
                     },
@@ -130,6 +133,7 @@ class _FavioratePlantState extends State<FavioratePlant> {
       print('Roles List NOK');
     }
   }
+
   int? id_data_for_delete;
 
   Future<FavioratePlantModel?> delete_faviorate_plant(int id_data) async {
@@ -138,11 +142,13 @@ class _FavioratePlantState extends State<FavioratePlant> {
         id_data.toString();
     var res = await Helper.getApi(url);
     if (res.statusCode == 200) {
-      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'با موفقیت از لیست حذف شد', image_select, 1);
       // delete_favorite();
       get_faviorate_plant(UserStaticFile.user_id!);
     } else {
-      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'متاسفانه از لیست حذف نشد', image_select, 1);
     }
   }
 }

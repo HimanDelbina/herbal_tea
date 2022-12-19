@@ -9,7 +9,7 @@ import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/page/plants/plant_select_new.dart';
 import 'package:sara_plant/page/sick/sick_home.dart';
 import 'package:sara_plant/provider/get_herbaltea.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 import '../../components/page_route.dart';
 import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';

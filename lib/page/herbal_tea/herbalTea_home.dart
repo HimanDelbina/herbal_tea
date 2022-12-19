@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/provider/get_herbaltea.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 import '../../components/error_get_data.dart';
 import '../../components/image_slider.dart';
 import '../../components/search_component.dart';
@@ -102,7 +102,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
   var show_data = [];
   var show_data_image = [];
   var show_data_Search = [];
-
+  String image_select = '';
   Widget listViewShow() {
     double myHeight = MediaQuery.of(context).size.height;
     double myWidth = MediaQuery.of(context).size.width;
@@ -110,6 +110,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     return Consumer<HerbalTeaGet>(builder: (context, value, child) {
       show_data = value.map;
       show_data_Search = value.map;
+
       return value.map.length == 0 && !value.error
           ? const My_loading()
           : value.error
@@ -200,6 +201,19 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                                     show_data[
                                                                             index]
                                                                         .id;
+                                                                image_select =
+                                                                    '';
+                                                                value.map[index]
+                                                                            .imageHerbaltea!.length ==
+                                                                        0
+                                                                    ? ""
+                                                                    : image_select = Helper
+                                                                            .imageUrl +
+                                                                        value
+                                                                            .map[index]
+                                                                            .imageHerbaltea![0]
+                                                                            .image
+                                                                            .toString();
                                                               });
                                                               if (SharedHelper
                                                                       .my_token !=
@@ -219,6 +233,23 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                                   show_data[
                                                                           index]
                                                                       .id;
+                                                              image_select = '';
+                                                              value
+                                                                          .map[
+                                                                              index]
+                                                                          .imageHerbaltea!
+                                                                          .length ==
+                                                                      0
+                                                                  ? ""
+                                                                  : image_select = Helper
+                                                                          .imageUrl +
+                                                                      value
+                                                                          .map[
+                                                                              index]
+                                                                          .imageHerbaltea![
+                                                                              0]
+                                                                          .image
+                                                                          .toString();
                                                             });
                                                             SharedHelper.my_token !=
                                                                         null &&
@@ -293,11 +324,11 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         .encode({"user": UserStaticFile.user_id!, "herbaltea": herbaltea_id});
     var res = await Helper.postApi(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      MyMessage.mySnackbarMessage(
-          context, 'دمنوش به لیست مورد علاقه ها اضافه شد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'دمنوش به لیست مورد علاقه ها اضافه شد', image_select, 1);
     } else if ((res.statusCode == 208)) {
-      MyMessage.mySnackbarMessage(
-          context, 'این دمنوش قبلا به لیست مورد علاقه ها اضافه شده', 1);
+      MyMessage.mySnackbarMessageWithImage(context,
+          'این دمنوش قبلا به لیست مورد علاقه ها اضافه شده', image_select, 1);
     } else {
       MyMessage.mySnackbarMessage(
           context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
@@ -310,10 +341,11 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         .encode({"user": UserStaticFile.user_id!, "herbal_tea": herbaltea_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      MyMessage.mySnackbarMessage(context, 'دمنوش به سبد خرید اضافه شد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'دمنوش به سبد خرید اضافه شد', image_select, 1);
     } else if ((res.statusCode == 208)) {
-      MyMessage.mySnackbarMessage(
-          context, 'این دمنوش قبلا به سبد خرید اضافه شده', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'این دمنوش قبلا به سبد خرید اضافه شده', image_select, 1);
     } else {
       MyMessage.mySnackbarMessage(
           context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
@@ -326,9 +358,11 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         .encode({"user": UserStaticFile.user_id!, "herbaltea": herbaltea_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'با موفقیت از لیست حذف شد', image_select, 1);
     } else {
-      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, 'متاسفانه از لیست حذف نشد', image_select, 1);
     }
   }
 }

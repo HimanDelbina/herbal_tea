@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
 import 'package:sara_plant/page/sick/sick_select.dart';
 import 'package:sara_plant/provider/get_sick.dart';
-import 'package:sara_plant/static/component_static.dart';
+import 'package:sara_plant/static/message_static.dart';
 import '../../components/error_get_data.dart';
 import '../../components/search_component.dart';
 import '../../static/helper.dart';

@@ -9,7 +9,7 @@ import 'package:sara_plant/model/new/quiz_model.dart';
 import 'package:sara_plant/page/mazaj/answer_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../provider/theme.dart';
-import '../../static/component_static.dart';
+import '../../static/message_static.dart';
 import '../../static/helper.dart';
 
 class QuizPage extends StatefulWidget {
