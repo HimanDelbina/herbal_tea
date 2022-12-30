@@ -10,6 +10,7 @@ import '../../static/helper.dart';
 import '../../static/user_static.dart';
 import '../../model/faviorate_sick_model.dart';
 import '../../provider/theme.dart';
+import '../register/signup.dart';
 
 class FaviorateSick extends StatefulWidget {
   const FaviorateSick({super.key});
@@ -44,7 +45,13 @@ class _FaviorateSickState extends State<FaviorateSick> {
                         horizontal: 15.0, vertical: 10.0),
                     child: item(faviorate_data),
                   )
-        : const SignUpError();
+        : ErrorPage(
+            image: "assets/animation/user.json",
+            is_rich: true,
+            rich_text: "لطفا برای استفاده",
+            rich_text_click: " ثبت نام ",
+            rich_text2: "کنید",
+            page: const SignUp());
   }
 
   Widget item(var data) {

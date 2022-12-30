@@ -12,6 +12,7 @@ import 'package:sara_plant/static/user_static.dart';
 import '../../model/faviorate_herbattea_model.dart';
 import '../../provider/theme.dart';
 import '../../static/helper.dart';
+import '../register/signup.dart';
 
 class FaviorateHerbalTea extends StatefulWidget {
   const FaviorateHerbalTea({super.key});
@@ -46,7 +47,13 @@ class _FaviorateHerbalTeaState extends State<FaviorateHerbalTea> {
                         horizontal: 15.0, vertical: 10.0),
                     child: item(faviorate_data),
                   )
-        : const SignUpError();
+        : ErrorPage(
+            image: "assets/animation/user.json",
+            is_rich: true,
+            rich_text: "لطفا برای استفاده",
+            rich_text_click: " ثبت نام ",
+            rich_text2: "کنید",
+            page: const SignUp());
   }
 
   Widget item(var data) {

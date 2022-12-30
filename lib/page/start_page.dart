@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/page/card/card_page.dart';
 import 'package:sara_plant/page/faviorate/faviorate_page.dart';
 import 'package:sara_plant/page/home/home.dart';
+import 'package:sara_plant/page/message/message_page.dart';
 import 'package:sara_plant/page/profile/profile_page.dart';
 import 'package:sara_plant/provider/animation_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,6 +73,8 @@ class _StartPageState extends State<StartPage> {
   final MyAnimationController controller = MyAnimationController();
   @override
   Widget build(BuildContext context) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
     ThemeBloc theme = Provider.of<ThemeBloc>(context);
     return AnimatedBuilder(
       animation: controller,
@@ -83,43 +86,7 @@ class _StartPageState extends State<StartPage> {
               iconTheme: IconThemeData(color: theme.iconDrawer),
               backgroundColor: theme.backgroundColor,
               actions: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      change_theme = !change_theme;
-                    });
-                    check_shared_data_test();
-                    change_theme ? theme.blackTheme() : theme.defaltTheme();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Center(
-                        child: change_theme
-                            ? Image.asset("assets/image/light.png",
-                                height: 30.0)
-                            : Image.asset("assets/image/light.png",
-                                height: 30.0, color: Colors.black)),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: controller.updateTheme,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 600),
-                      transitionBuilder: (child, animation) =>
-                          ScaleTransition(scale: animation, child: child),
-                      switchInCurve: Curves.easeInOutBack,
-                      child: controller.is_theme
-                          ? Image.asset("assets/image/light.png",
-                              height: 30.0, key: const ValueKey("light"))
-                          : Image.asset("assets/image/light.png",
-                              height: 30.0,
-                              color: Colors.black,
-                              key: const ValueKey("dark")),
-                    ),
-                  ),
-                ),
+                MyMessage(),
               ],
               elevation: 0.0),
           body: _widgetOptions.elementAt(_selectedIndex),
@@ -162,4 +129,40 @@ class _StartPageState extends State<StartPage> {
       },
     );
   }
+
+  Widget MyMessage() {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    ThemeBloc theme = Provider.of<ThemeBloc>(context);
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MessagePage()));
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Center(
+          child: Container(
+            height: myHeight * 0.04,
+            width: myWidth * 0.08,
+            child: Stack(
+              children: [
+                const Center(child: Icon(IconlyLight.message)),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: myHeight * 0.02,
+                    width: myWidth * 0.04,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.redAccent),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 }

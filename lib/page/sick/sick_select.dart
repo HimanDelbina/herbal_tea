@@ -23,12 +23,15 @@ class _SickSelectState extends State<SickSelect> {
     return Scaffold(
       body: SafeArea(
         child: is_loading
-            ? ListView.builder(
-                itemCount: signs_data_final.length,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Text(signs_data_final[index].name);
-                },
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: ListView.builder(
+                  itemCount: signs_data_final.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Text(signs_data_final[index].name);
+                  },
+                ),
               )
             : const My_loading(),
       ),

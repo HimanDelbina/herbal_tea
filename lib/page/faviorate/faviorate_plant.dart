@@ -13,6 +13,7 @@ import '../../static/user_static.dart';
 import '../../model/faviorate_plant_model.dart';
 import '../../provider/theme.dart';
 import '../plants/plant_select_new.dart';
+import '../register/signup.dart';
 
 class FavioratePlant extends StatefulWidget {
   const FavioratePlant({super.key});
@@ -52,7 +53,13 @@ class _FavioratePlantState extends State<FavioratePlant> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10.0),
                     child: item(faviorate_data))
-        : const SignUpError();
+        :ErrorPage(
+            image: "assets/animation/user.json",
+            is_rich: true,
+            rich_text: "لطفا برای استفاده",
+            rich_text_click: " ثبت نام ",
+            rich_text2: "کنید",
+            page: const SignUp());
   }
 
   String image_select = '';

@@ -6,9 +6,9 @@ import 'package:sara_plant/components/number_scale_animation.dart';
 import 'package:sara_plant/provider/get_card.dart';
 import '../../components/error_page.dart';
 import '../../components/image_slider.dart';
-import '../../components/sign_up_error.dart';
 import '../../static/user_static.dart';
 import '../../provider/theme.dart';
+import '../register/signup.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({Key? key}) : super(key: key);
@@ -33,6 +33,8 @@ class _CardPageState extends State<CardPage> {
   @override
   Widget build(BuildContext context) {
     ThemeBloc theme = Provider.of<ThemeBloc>(context);
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
     context.read<CardGet>().fetchData;
     return Scaffold(
       backgroundColor: theme.backgroundColor,
@@ -41,9 +43,14 @@ class _CardPageState extends State<CardPage> {
             ? Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 15.0, vertical: 10.0),
-                child: list_show_card_data(),
-              )
-            : const SignUpError(),
+                child: list_show_card_data())
+            : ErrorPage(
+                image: "assets/animation/user.json",
+                is_rich: true,
+                rich_text: "لطفا برای استفاده",
+                rich_text_click: " ثبت نام ",
+                rich_text2: "کنید",
+                page: const SignUp()),
       ),
     );
   }

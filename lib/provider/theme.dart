@@ -19,7 +19,7 @@ class ThemeBloc extends ChangeNotifier {
   Color _conImageItem = Colors.white;
   Color _unselectItem = Colors.grey;
   Color _selectItem = const Color(0xff03A760);
-  Color _items = Colors.grey.withOpacity(0.1);
+  Color _items = Colors.white;
   Color _animatedContainerToturial = const Color(0xFFA2E274);
   Color _nextBackButton = Colors.grey.withOpacity(0.1);
   Color _focusBorderSearch = Colors.blueGrey;
@@ -77,7 +77,7 @@ class ThemeBloc extends ChangeNotifier {
     _conImageItem = Colors.white;
     _unselectItem = Colors.grey;
     _selectItem = const Color(0xff03A760);
-    _items = Colors.grey.withOpacity(0.1);
+    _items = Colors.white;
     _animatedContainerToturial = const Color(0xFFA2E274);
     _nextBackButton = Colors.grey.withOpacity(0.1);
     _focusBorderSearch = Colors.blueGrey;

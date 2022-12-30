@@ -68,8 +68,14 @@ class _PlantSelectState extends State<PlantSelect> {
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Column(
                       children: [
-                        Image.network(widget.image!),
-                        Text(widget.description!, textAlign: TextAlign.justify),
+                        Container(
+                            height: myHeight * 0.3,
+                            width: myWidth,
+                            child: Image.network(widget.image!)),
+                        Text(
+                          widget.description!,
+                          textAlign: TextAlign.justify,
+                        ),
                       ],
                     ),
                   );

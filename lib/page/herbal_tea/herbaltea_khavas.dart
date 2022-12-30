@@ -27,8 +27,8 @@ class _HerbalTeaKhavasState extends State<HerbalTeaKhavas> {
               : ListView.builder(
                   itemCount: widget.data.length,
                   itemBuilder: (context, index) {
-                    return item_show(
-                        widget.data[index].name, (index + 1).toString());
+                    return item_show(widget.data[index].name,
+                        widget.data[index].description, index + 1);
                   },
                 ),
         ),
@@ -36,21 +36,26 @@ class _HerbalTeaKhavasState extends State<HerbalTeaKhavas> {
     );
   }
 
-  Widget item_show(String data, String number) {
+  Widget item_show(String title, String description, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-          child: Row(
-            children: [
-              Text(number, style: const TextStyle(color: Colors.green)),
-              const SizedBox(width: 5.0),
-              const Text(" : "),
-              Expanded(child: Text(data, softWrap: true)),
-            ],
-          ),
-        ),
+      child: ExpansionTile(
+        textColor: Colors.green,
+        iconColor: Colors.green,
+        backgroundColor: Colors.greenAccent.withOpacity(0.1),
+        controlAffinity: ListTileControlAffinity.trailing,
+        initiallyExpanded: false,
+        title: Text(title,
+            style:
+                const TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold)),
+        leading:
+            Text(index.toString(), style: const TextStyle(color: Colors.green)),
+        children: [
+          ListTile(
+              title: Text(description,
+                  style: const TextStyle(fontSize: 14.0),
+                  textAlign: TextAlign.justify))
+        ],
       ),
     );
   }

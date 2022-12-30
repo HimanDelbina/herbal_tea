@@ -1,12 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sara_plant/page/home/home.dart';
 import 'package:sara_plant/page/toturial/toturial_page.dart';
 import 'package:sara_plant/static/message_static.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../provider/theme.dart';
-import 'start_page.dart';
 import 'dart:io';
 
 class Splash extends StatefulWidget {
@@ -72,7 +70,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _typer(),
+                  LottieBuilder.asset("assets/animation/splash.json",
+                      height: myHeight * 0.5, repeat: true),
+                  // _typer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(

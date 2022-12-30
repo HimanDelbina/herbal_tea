@@ -63,17 +63,24 @@ class _QuizPageState extends State<QuizPage> {
                         onPageChanged: _onChanged,
                         itemCount: quiz_data.length,
                         itemBuilder: (context, index) => Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                                height: myHeight * 0.2,
-                                padding: const EdgeInsets.all(30.0),
-                                child:
-                                    Center(child: Text(quiz_data[index].quiz))),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 30.0),
+                              child: Text(
+                                quiz_data[index].quiz,
+                                softWrap: true,
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                             Expanded(
                                 child: ListView.builder(
                               itemCount: answer_data[_currentPage].length,
                               itemBuilder: (context, i) {
-                                print(answer_bool);
                                 return Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5.0),

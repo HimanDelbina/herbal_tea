@@ -56,6 +56,7 @@ class SharedHelper {
     });
     if (res.statusCode == 200 || res.statusCode == 201) {
       Map<String, dynamic> result = json.decode(res.body);
+
       UserStaticFile.user_id = result["id"];
       UserStaticFile.first_name = utf8.decode(result["first_name"].codeUnits);
       UserStaticFile.last_name = utf8.decode(result["last_name"].codeUnits);

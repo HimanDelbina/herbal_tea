@@ -261,16 +261,15 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                      height: myHeight * 0.1,
-                                      width: myWidth * 0.2,
+                                      height: myHeight * 0.08,
+                                      width: myWidth * 0.16,
                                       padding: const EdgeInsets.all(5.0),
                                       child: Image.network(
-                                        value.map[index].image == null
-                                            ? ""
-                                            : "http://swaaaa.ir:7777" +
-                                                value.map[index].image
-                                                    .toString(),
-                                      )),
+                                          value.map[index].image == null
+                                              ? ""
+                                              : "http://swaaaa.ir:7777" +
+                                                  value.map[index].image
+                                                      .toString())),
                                   Text(value.map[index].name.toString(),
                                       style: TextStyle(
                                           color: theme.text,
@@ -331,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    height: myHeight * 0.1,
+                                    height: myHeight * 0.08,
                                     width: myWidth,
                                     padding: const EdgeInsets.all(5.0),
                                     child: ImageSliderHerbalTea(

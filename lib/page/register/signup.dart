@@ -1,10 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
+import 'package:sara_plant/page/start_page.dart';
 import 'package:sara_plant/static/message_static.dart';
 import 'package:sara_plant/static/shared_helper.dart';
-
+import '../../components/error_get_data.dart';
+import '../../provider/theme.dart';
 import '../../static/helper.dart';
 import '../../static/user_static.dart';
 
@@ -14,6 +16,8 @@ class SignUp extends StatefulWidget {
   @override
   State<SignUp> createState() => _SignUpState();
 }
+
+bool show_button = true;
 
 class _SignUpState extends State<SignUp> {
   TextEditingController first_name = TextEditingController();
@@ -25,6 +29,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     double myHeight = MediaQuery.of(context).size.height;
     double myWidth = MediaQuery.of(context).size.width;
+    ThemeBloc theme = Provider.of<ThemeBloc>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -32,32 +37,40 @@ class _SignUpState extends State<SignUp> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           child: Column(
             children: [
-              items(first_name, "first_name", "first_name", IconlyLight.profile,
-                  false, TextInputType.name),
-              items(last_name, "last_name", "last_name", IconlyLight.profile,
-                  false, TextInputType.name),
-              items(phone_number, "phone_number", "phone_number",
+              items(first_name, "نام", "نام", IconlyLight.profile, false,
+                  TextInputType.name),
+              items(last_name, "نام خانوادگی", "نام خانوادگی",
+                  IconlyLight.profile, false, TextInputType.name),
+              items(phone_number, "شماره موبایل", "شماره موبایل",
                   IconlyLight.call, false, TextInputType.phone),
-              items(address, "address", "address", IconlyLight.location, false,
+              items(address, "آدرس", "آدرس", IconlyLight.location, false,
                   TextInputType.streetAddress),
-              items(password, "password", "password", IconlyLight.password,
-                  false, TextInputType.phone),
+              items(password, "رمز", "رمز", IconlyLight.password, false,
+                  TextInputType.phone),
               const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  create_user();
-                },
-                child: Container(
-                  height: myHeight * 0.07,
-                  width: myWidth,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(5.0)),
-                  child: const Center(
-                    child: Text("ثبت نام"),
-                  ),
-                ),
-              )
+              show_button
+                  ? GestureDetector(
+                      onTap: () {
+                        create_user();
+                        setState(() {
+                          show_button = false;
+                        });
+                      },
+                      child: Container(
+                        height: myHeight * 0.07,
+                        width: myWidth,
+                        decoration: BoxDecoration(
+                            color: Colors.blueAccent.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(5.0)),
+                        child: Center(
+                          child: Text(
+                            "ثبت نام",
+                            style: TextStyle(color: theme.text),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const My_loading()
             ],
           ),
         ),
@@ -111,11 +124,22 @@ class _SignUpState extends State<SignUp> {
       UserStaticFile.address =
           utf8.decode(result["payload"]["address"].codeUnits);
       MyMessage.mySnackbarMessage(context, "ثبت نام شما با موفقیت انجام شد", 1);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const StartPage(),
+          ));
     } else if (res.statusCode == 208) {
       MyMessage.mySnackbarMessage(context, "این شماره موبایل قبلا ثبت شده", 1);
+      setState(() {
+        show_button = false;
+      });
     } else {
       MyMessage.mySnackbarMessage(
           context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
+      setState(() {
+        show_button = false;
+      });
     }
   }
 }
