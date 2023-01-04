@@ -12,7 +12,6 @@ import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
 import '../../static/user_static.dart';
 import '../../provider/theme.dart';
-import '../register/signup.dart';
 
 class SickHome extends StatefulWidget {
   const SickHome({super.key});
@@ -135,7 +134,6 @@ class _SickHomeState extends State<SickHome> {
                                 Container(
                                   height: myHeight * 0.04,
                                   width: myWidth * 0.08,
-                                  // color: Colors.grey.withOpacity(0.1),
                                   child: Center(
                                     child: GestureDetector(
                                         onTap: () {
@@ -196,7 +194,7 @@ class _SickHomeState extends State<SickHome> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        SickSelect(id: show_data[index].id)));
+                                        SickSelect(data: show_data[index])));
                           },
                           child: AnimatedContainer(
                             padding: const EdgeInsets.symmetric(

@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../components/my_drawer.dart';
 import '../provider/theme.dart';
 import '../static/shared_helper.dart';
+import 'package:easy_localization/src/public_ext.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -103,23 +104,23 @@ class _StartPageState extends State<StartPage> {
               onTap: _onItemTapped,
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  label: "خانه",
+                  label: "home".tr(),
                   icon: Icon(
                       _selectedIndex == 0 ? IconlyBold.home : IconlyLight.home),
                 ),
                 BottomNavigationBarItem(
-                  label: "مورد علاقه ها",
+                  label: "faviorate".tr(),
                   icon: Icon(_selectedIndex == 1
                       ? IconlyBold.bookmark
                       : IconlyLight.bookmark),
                 ),
                 BottomNavigationBarItem(
-                  label: "سبد خرید",
+                  label: "shop".tr(),
                   icon: Icon(
                       _selectedIndex == 2 ? IconlyBold.bag : IconlyLight.bag),
                 ),
                 BottomNavigationBarItem(
-                  label: "پروفایل",
+                  label: "profile".tr(),
                   icon: Icon(_selectedIndex == 3
                       ? IconlyBold.profile
                       : IconlyLight.profile),
@@ -164,5 +165,4 @@ class _StartPageState extends State<StartPage> {
       ),
     );
   }
-
 }

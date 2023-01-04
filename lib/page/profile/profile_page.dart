@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
@@ -57,13 +58,11 @@ class _ProfilePageState extends State<ProfilePage> {
               )
             : ErrorPage(
                 image: "assets/animation/user.json",
-                // text: "لطفا برای استفاده ثبت نام کنید",
                 is_rich: true,
-                rich_text: "لطفا برای استفاده",
-                rich_text_click: " ثبت نام ",
-                rich_text2: "کنید",
+                rich_text: "please_signUp1".tr(),
+                rich_text_click: "signUp".tr(),
+                rich_text2: "please_signUp2".tr(),
                 page: const SignUp()),
-        // child: is_signin ? no_signin() : signin(),
       ),
     );
   }
@@ -85,8 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                    "شما هنوز ثبت نام نکرده اید لطفا برای استفاده کامل ثبت نام خود را کامل کنید"),
+                Text("signUp_message".tr()),
                 Row(
                   children: [
                     GestureDetector(
@@ -96,8 +94,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             MaterialPageRoute(
                                 builder: (context) => const SignUp()));
                       },
-                      child: const Text("ثبت نام",
-                          style: TextStyle(
+                      child: Text("signUp".tr(),
+                          style: const TextStyle(
                               color: Colors.blueAccent,
                               fontWeight: FontWeight.bold)),
                     ),
@@ -111,6 +109,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Locale english_lan = const Locale('en', 'US');
+  Locale persian_lan = const Locale('fa', 'IR');
   Widget signin_profile() {
     double myHeight = MediaQuery.of(context).size.height;
     double myWidth = MediaQuery.of(context).size.width;
@@ -128,9 +128,11 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Row(
                 children: [
-                  Text("پروفایل",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: theme_Bloc.text)),
+                  Text("profile",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: theme_Bloc.text))
+                      .tr(),
                 ],
               ),
               const Divider(),
@@ -184,21 +186,38 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool change_theme = false;
+  bool change_language = false;
   void check_shared_data() async {
     bool theme;
     SharedPreferences pref = await SharedPreferences.getInstance();
     final get_theme = pref.getBool("theme");
+    final get_language = pref.getBool("language");
     setState(() {
       change_theme = get_theme!;
+      change_language = get_language!;
     });
     final ThemeBloc theme_Bloc = Provider.of<ThemeBloc>(context, listen: false);
     change_theme ? theme_Bloc.blackTheme() : theme_Bloc.defaltTheme();
+    if (change_language) {
+      setState(() {
+        context.setLocale(const Locale('en', 'EN'));
+      });
+    } else {
+      setState(() {
+        context.setLocale(const Locale('fa', 'IR'));
+      });
+    }
     print("himan theme test ======================" + get_theme.toString());
   }
 
   void check_shared_data_test() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool("theme", change_theme);
+  }
+
+  void check_shared_language() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool("language", change_language);
   }
 
   final MyAnimationController controller = MyAnimationController();
@@ -223,10 +242,11 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Row(
                   children: [
-                    Text("تنظیمات",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: theme_Bloc.text)),
+                    Text("setting",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: theme_Bloc.text))
+                        .tr(),
                   ],
                 ),
                 const Divider(),
@@ -251,21 +271,33 @@ class _ProfilePageState extends State<ProfilePage> {
                           ScaleTransition(scale: animation, child: child),
                       switchInCurve: Curves.easeInOutBack,
                       child: controller.is_theme
-                          ? Text("تم تاریک",
-                              style: TextStyle(color: theme_Bloc.text),
-                              key: const ValueKey("dark"))
-                          : Text("تم روشن",
-                              style: TextStyle(color: theme_Bloc.text),
-                              key: const ValueKey("light"))),
+                          ? Text("dark_theme",
+                                  style: TextStyle(color: theme_Bloc.text),
+                                  key: const ValueKey("dark"))
+                              .tr()
+                          : Text("light_theme",
+                                  style: TextStyle(color: theme_Bloc.text),
+                                  key: const ValueKey("light"))
+                              .tr()),
                 ),
                 ListTile(
                   onTap: controller.updatelanguage,
                   trailing: Switch(
-                    value: controller.is_lan,
+                    value: change_language,
                     onChanged: (value) {
                       setState(() {
-                        controller.is_lan = value;
+                        change_language = value;
                       });
+                      if (change_language == true) {
+                        setState(() {
+                          context.setLocale(const Locale('en', 'EN'));
+                        });
+                      } else {
+                        setState(() {
+                          context.setLocale(const Locale('fa', 'IR'));
+                        });
+                      }
+                      check_shared_language();
                     },
                   ),
                   leading: AnimatedSwitcher(
@@ -274,12 +306,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           ScaleTransition(scale: animation, child: child),
                       switchInCurve: Curves.easeInOutBack,
                       child: controller.is_lan
-                          ? Text("فارسی",
-                              style: TextStyle(color: theme_Bloc.text),
-                              key: const ValueKey("persian"))
-                          : Text("انگلیسی",
-                              style: TextStyle(color: theme_Bloc.text),
-                              key: const ValueKey("english"))),
+                          ? Text("language",
+                                  style: TextStyle(color: theme_Bloc.text),
+                                  key: const ValueKey("persian"))
+                              .tr()
+                          : Text("language",
+                                  style: TextStyle(color: theme_Bloc.text),
+                                  key: const ValueKey("english"))
+                              .tr()),
                 ),
               ],
             ),

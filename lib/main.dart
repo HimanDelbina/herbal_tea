@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'page/cheack_net.dart';
 import 'page/start_page.dart';
 import 'provider/check_internet.dart';
 import 'provider/get_card.dart';
@@ -17,10 +16,12 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
       saveLocale: true,
+      startLocale: const Locale('fa', 'IR'),
       supportedLocales: const [
         Locale('fa', 'IR'),
         Locale('en', 'EN'),
       ],
+      fallbackLocale: const Locale('fa', 'IR'),
       path: "assets/resourse",
       child: const MyApp()));
 }
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
+
         debugShowCheckedModeBanner: false,
         title: 'flutter_plant',
         theme: ThemeData(fontFamily: "Vazir"),

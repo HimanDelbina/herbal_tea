@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../model/new/sick_model.dart';
+import '../model/new/sick_select_model.dart';
 import '../static/helper.dart';
 import '../static/shared_helper.dart';
 
 class SickGet extends ChangeNotifier {
-  List<SickModel> _map = [];
+  List<SickSelectModel> _map = [];
   bool _error = false;
   bool _refresh = false;
   String _errorMessage = "";
-  List<SickModel> get map => _map;
+  List<SickSelectModel> get map => _map;
   bool get error => _error;
   bool get refresh => _refresh;
   String get errorMessage => _errorMessage;
@@ -36,7 +37,7 @@ class SickGet extends ChangeNotifier {
     if (response.statusCode == 200) {
       try {
         var x = response.body;
-        _map = sickModelFromJson(x);
+        _map = sickSelectModelFromJson(x);
         _error = false;
       } catch (e) {
         _error = true;

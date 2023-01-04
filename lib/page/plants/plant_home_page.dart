@@ -13,6 +13,7 @@ import '../../provider/theme.dart';
 import '../../static/message_static.dart';
 import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PlantHome extends StatefulWidget {
   const PlantHome({Key? key}) : super(key: key);
@@ -220,7 +221,7 @@ class _PlantHomeState extends State<PlantHome> {
               : data.isLike == true
                   ? delete_plant_faviorate()
                   : MyMessage.mySignUpMessage(
-                      context, "لطفا اول ثبت نام کنید", 1);
+                      context, "complete_signUp".tr(), 1);
         },
         child: MyFaviorateIcon(is_fave: data.isLike == true));
   }
@@ -274,10 +275,10 @@ class _PlantHomeState extends State<PlantHome> {
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'گیاه به لیست مورد علاقه ها اضافه شد', select_image, 1);
+          context, "add_plant_faviorate_complete".tr(), select_image, 1);
     } else {
-      MyMessage.mySnackbarMessageWithImage(context,
-          'این گیاه قبلا به لیست مورد علاقه ها اضافه شده', select_image, 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, "add_plant_faviorate_already".tr(), select_image, 1);
     }
   }
 
@@ -289,10 +290,10 @@ class _PlantHomeState extends State<PlantHome> {
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'با موفقیت از لیست حذف شد', select_image, 1);
+          context, "delete_complete".tr(), select_image, 1);
     } else {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'متاسفانه از لیست حذف نشد', select_image, 1);
+          context, "delete_error".tr(), select_image, 1);
     }
   }
 }

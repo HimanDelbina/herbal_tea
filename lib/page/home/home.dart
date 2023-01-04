@@ -15,6 +15,7 @@ import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';
 import '../../static/shared_helper.dart';
 import '../plants/plant_home_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         if (is_exit == 2) {
           exit(1);
         } else {
-          MyMessage.mySnackbarMessage(context, "برای خروج دو بار کلیک کنید", 1);
+          MyMessage.mySnackbarMessage(context, "for_exit".tr(), 1);
         }
         return false;
       },
@@ -71,8 +72,8 @@ class _HomePageState extends State<HomePage> {
                   MyWidgetTransform(
                     duration: 600,
                     curve: Curves.easeIn,
-                    child: header_Item_home("assets/image/leaf.png", "گیاهان",
-                        Colors.greenAccent.withOpacity(0.1), () {
+                    child: header_Item_home("assets/image/leaf.png",
+                        "plants".tr(), Colors.greenAccent.withOpacity(0.1), () {
                       Navigator.of(context).push(FadeInRoute(
                           page: const PlantHome(), routeName: "plant"));
                     }),
@@ -80,8 +81,8 @@ class _HomePageState extends State<HomePage> {
                   MyWidgetTransform(
                     duration: 800,
                     curve: Curves.easeIn,
-                    child: header_Item_home("assets/image/tea.png", "دمنوش",
-                        Colors.brown.withOpacity(0.1), () {
+                    child: header_Item_home("assets/image/tea.png",
+                        "herbaltea".tr(), Colors.brown.withOpacity(0.1), () {
                       Navigator.of(context).push(FadeInRoute(
                           page: const HerbalTeaHome(), routeName: "herbaltea"));
                     }),
@@ -89,8 +90,8 @@ class _HomePageState extends State<HomePage> {
                   MyWidgetTransform(
                     duration: 1000,
                     curve: Curves.easeIn,
-                    child: header_Item_home("assets/image/sick.png", "بیماری",
-                        Colors.redAccent.withOpacity(0.1), () {
+                    child: header_Item_home("assets/image/sick.png",
+                        "sick".tr(), Colors.redAccent.withOpacity(0.1), () {
                       Navigator.of(context).push(FadeInRoute(
                           page: const SickHome(), routeName: "sick"));
                     }),
@@ -165,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     Center(
-                      child: Text("گیاهان دارویی",
+                      child: Text("medicinal_plants".tr(),
                           style: TextStyle(
                             color: theme.titleText,
                             fontWeight: FontWeight.bold,
@@ -204,7 +205,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Center(
-                      child: Text("دمنوش ها",
+                      child: Text("herbaltea".tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: theme.titleText))),

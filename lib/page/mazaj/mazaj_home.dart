@@ -40,12 +40,14 @@ class _MazaHomeState extends State<MazajHome> {
           automaticallyImplyLeading: false,
           actions: [
             GestureDetector(
-                onTap: (() {
-                  Navigator.pop(context);
-                }),
-                child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Icon(IconlyLight.arrow_left_2)))
+              onTap: (() {
+                Navigator.pop(context);
+              }),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                child: Icon(IconlyLight.arrow_left_2),
+              ),
+            ),
           ],
           elevation: 0.0),
       body: listViewShow(),

@@ -7,6 +7,7 @@ import '../../model/new/herbaltea_select_model.dart';
 import '../../provider/theme.dart';
 import '../../static/helper.dart';
 import 'herbaltea_zarar.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HerbalTeaSelect extends StatefulWidget {
   int? id;
@@ -41,9 +42,9 @@ class _HerbalTeaSelectState extends State<HerbalTeaSelect> {
                 unselectedLabelColor: theme.appbatTextUnselect,
                 indicatorColor: theme.appbatTextSelect,
                 tabs: [
-                  tab_item("دمنوش"),
-                  tab_item("خواص"),
-                  tab_item("ضرر"),
+                  tab_item("herbaltea".tr()),
+                  tab_item("properties".tr()),
+                  tab_item("loss".tr()),
                 ],
               )
             ],

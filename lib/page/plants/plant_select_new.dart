@@ -7,6 +7,7 @@ import 'package:sara_plant/page/plants/plant_zarar.dart';
 import '../../model/new/plant_select_model.dart';
 import '../../provider/theme.dart';
 import '../../static/helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PlantSelectNew extends StatefulWidget {
   int? id;
@@ -41,9 +42,9 @@ class _PlantSelectNewState extends State<PlantSelectNew> {
                 unselectedLabelColor: theme.appbatTextUnselect,
                 indicatorColor: theme.appbatTextSelect,
                 tabs: [
-                  tab_item("گیاه"),
-                  tab_item("خواص"),
-                  tab_item("ضرر"),
+                  tab_item("plants".tr()),
+                  tab_item("properties".tr()),
+                  tab_item("loss".tr()),
                 ],
               )
             ],

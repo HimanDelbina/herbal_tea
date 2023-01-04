@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NoInternet extends StatefulWidget {
   const NoInternet({Key? key}) : super(key: key);
@@ -20,9 +21,9 @@ class _NoInternetState extends State<NoInternet> {
           children: [
             const SizedBox(),
             Lottie.asset("assets/animation/wifi.json", height: 150.0),
-            const Text(
-              "لطفا ارتباط اینترنت خود را چک کنید",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Text(
+              "check_net".tr(),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             )
           ],
         ),

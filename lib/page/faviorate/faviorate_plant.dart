@@ -7,7 +7,7 @@ import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
 import 'package:sara_plant/static/message_static.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../../static/helper.dart';
 import '../../static/user_static.dart';
 import '../../model/faviorate_plant_model.dart';
@@ -45,7 +45,7 @@ class _FavioratePlantState extends State<FavioratePlant> {
         ? time_for_show_data == 1
             ? ErrorPage(
                 image: "assets/animation/empty.json",
-                text: "لیست مورد علاقه شما خالی است",
+                text: "null_faviorate".tr(),
                 is_rich: false)
             : faviorate_data.length == 0
                 ? const My_loading()
@@ -53,12 +53,12 @@ class _FavioratePlantState extends State<FavioratePlant> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10.0),
                     child: item(faviorate_data))
-        :ErrorPage(
+        : ErrorPage(
             image: "assets/animation/user.json",
             is_rich: true,
-            rich_text: "لطفا برای استفاده",
-            rich_text_click: " ثبت نام ",
-            rich_text2: "کنید",
+            rich_text: "please_signUp1".tr(),
+            rich_text_click: "signUp".tr(),
+            rich_text2: "please_signUp2".tr(),
             page: const SignUp());
   }
 
@@ -150,12 +150,12 @@ class _FavioratePlantState extends State<FavioratePlant> {
     var res = await Helper.getApi(url);
     if (res.statusCode == 200) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'با موفقیت از لیست حذف شد', image_select, 1);
+          context, "delete_complete".tr(), image_select, 1);
       // delete_favorite();
       get_faviorate_plant(UserStaticFile.user_id!);
     } else {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'متاسفانه از لیست حذف نشد', image_select, 1);
+          context, "delete_error".tr(), image_select, 1);
     }
   }
 }

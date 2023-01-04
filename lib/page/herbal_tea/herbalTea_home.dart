@@ -14,6 +14,7 @@ import '../../static/shared_helper.dart';
 import '../../static/user_static.dart';
 import '../../provider/theme.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HerbalTeaHome extends StatefulWidget {
   const HerbalTeaHome({Key? key}) : super(key: key);
@@ -152,7 +153,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                        "قیمت : " +
+                                                        "price".tr() +
                                                             show_data[index]
                                                                 .price
                                                                 .toStringAsFixed(
@@ -212,7 +213,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
               : data.isLike == true
                   ? delete_herbaltea_faviorate()
                   : MyMessage.mySignUpMessage(
-                      context, "لطفا اول ثبت نام کنید", 1);
+                      context, "complete_signUp".tr(), 1);
         },
         child: MyFaviorateIcon(is_fave: data.isLike == true));
   }
@@ -268,13 +269,12 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     var res = await Helper.postApi(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'دمنوش به لیست مورد علاقه ها اضافه شد', image_select, 1);
+          context, "add_herbaltea_faviorate_complete".tr(), image_select, 1);
     } else if ((res.statusCode == 208)) {
-      MyMessage.mySnackbarMessageWithImage(context,
-          'این دمنوش قبلا به لیست مورد علاقه ها اضافه شده', image_select, 1);
+      MyMessage.mySnackbarMessageWithImage(
+          context, "add_herbaltea_faviorate_already".tr(), image_select, 1);
     } else {
-      MyMessage.mySnackbarMessage(
-          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
+      MyMessage.mySnackbarMessage(context, "add_error".tr(), 1);
     }
   }
 
@@ -285,13 +285,12 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'دمنوش به سبد خرید اضافه شد', image_select, 1);
+          context, "add_herbaltea_card_complete".tr(), image_select, 1);
     } else if ((res.statusCode == 208)) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'این دمنوش قبلا به سبد خرید اضافه شده', image_select, 1);
+          context, "add_herbaltea_card_already".tr(), image_select, 1);
     } else {
-      MyMessage.mySnackbarMessage(
-          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
+      MyMessage.mySnackbarMessage(context, "add_error".tr(), 1);
     }
   }
 
@@ -302,10 +301,10 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'با موفقیت از لیست حذف شد', image_select, 1);
+          context, "delete_complete".tr(), image_select, 1);
     } else {
       MyMessage.mySnackbarMessageWithImage(
-          context, 'متاسفانه از لیست حذف نشد', image_select, 1);
+          context, "delete_error".tr(), image_select, 1);
     }
   }
 }

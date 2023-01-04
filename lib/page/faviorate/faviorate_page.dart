@@ -4,6 +4,7 @@ import 'package:sara_plant/page/faviorate/faviorate_herbaltea.dart';
 import 'package:sara_plant/page/faviorate/faviorate_plant.dart';
 import 'package:sara_plant/page/faviorate/faviorate_sick.dart';
 import '../../provider/theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FavioratePage extends StatefulWidget {
   const FavioratePage({Key? key}) : super(key: key);
@@ -31,9 +32,9 @@ class _FavioratePageState extends State<FavioratePage> {
                 unselectedLabelColor: theme.appbatTextUnselect,
                 indicatorColor: theme.appbatTextSelect,
                 tabs: [
-                  tab_item("گیاهان"),
-                  tab_item("دمنوش"),
-                  tab_item("بیماری"),
+                  tab_item("plants".tr()),
+                  tab_item("herbaltea".tr()),
+                  tab_item("sick".tr()),
                 ],
               )
             ],

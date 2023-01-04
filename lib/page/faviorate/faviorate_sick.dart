@@ -11,6 +11,7 @@ import '../../static/user_static.dart';
 import '../../model/faviorate_sick_model.dart';
 import '../../provider/theme.dart';
 import '../register/signup.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FaviorateSick extends StatefulWidget {
   const FaviorateSick({super.key});
@@ -36,7 +37,7 @@ class _FaviorateSickState extends State<FaviorateSick> {
         ? time_for_show_data == 1
             ? ErrorPage(
                 image: "assets/animation/empty.json",
-                text: "لیست مورد علاقه شما خالی است",
+                text: "null_faviorate".tr(),
                 is_rich: false)
             : faviorate_data.length == 0
                 ? const My_loading()
@@ -48,9 +49,9 @@ class _FaviorateSickState extends State<FaviorateSick> {
         : ErrorPage(
             image: "assets/animation/user.json",
             is_rich: true,
-            rich_text: "لطفا برای استفاده",
-            rich_text_click: " ثبت نام ",
-            rich_text2: "کنید",
+            rich_text: "please_signUp1".tr(),
+            rich_text_click: "signUp".tr(),
+            rich_text2: "please_signUp2".tr(),
             page: const SignUp());
   }
 
@@ -116,10 +117,10 @@ class _FaviorateSickState extends State<FaviorateSick> {
         id_data.toString();
     var res = await Helper.getApi(url);
     if (res.statusCode == 200) {
-      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+      MyMessage.mySnackbarMessage(context, "delete_complete".tr(), 1);
       get_faviorate_sick(UserStaticFile.user_id!);
     } else {
-      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
+      MyMessage.mySnackbarMessage(context, "delete_error".tr(), 1);
     }
   }
 }

@@ -1,69 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
+import 'package:sara_plant/page/sick/sick-natural_page.dart';
+import 'package:sara_plant/page/sick/sick_sign_page.dart';
 import '../../model/new/sick_select_model.dart';
-import '../../static/helper.dart';
+import '../../provider/theme.dart';
+import '../start_page.dart';
 
 class SickSelect extends StatefulWidget {
-  int? id;
-  SickSelect({super.key, this.id});
+  var data;
+  SickSelect({super.key, this.data});
 
   @override
   State<SickSelect> createState() => _SickSelectState();
 }
 
 class _SickSelectState extends State<SickSelect> {
+  var sick_data;
   @override
   void initState() {
     super.initState();
-    get_signs(widget.id!);
+    sick_data = widget.data;
   }
 
   @override
   Widget build(BuildContext context) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    ThemeBloc theme = Provider.of<ThemeBloc>(context);
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
+      appBar: AppBar(
+          iconTheme: IconThemeData(color: theme.iconItem),
+          backgroundColor: Colors.transparent,
+          leadingWidth: myWidth * 0.2,
+          automaticallyImplyLeading: false,
+          actions: [
+            GestureDetector(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const StartPage()));
+                }),
+                child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Icon(IconlyBold.home))),
+            const Spacer(),
+            GestureDetector(
+                onTap: (() {
+                  Navigator.pop(context);
+                }),
+                child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Icon(IconlyLight.arrow_left_2))),
+          ],
+          elevation: 0.0),
       body: SafeArea(
-        child: is_loading
-            ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: ListView.builder(
-                  itemCount: signs_data_final.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Text(signs_data_final[index].name);
-                  },
-                ),
-              )
-            : const My_loading(),
-      ),
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(sick_data.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: Text(
+                sick_data.sickDescription,
+                textAlign: TextAlign.justify,
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  item("علایم بیماری", SickSignPage(data: sick_data.signsSick)),
+                  item("درمان طبیعی",
+                      SickNaturalPage(data: sick_data.nuturalSick)),
+                ],
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 
-  var sick_data = [];
-  var sick_data_backup = [];
-  var signs_data = [];
-  var signs_data_final = [];
-  List sick_data_list = [];
-  bool is_loading = false;
-  Future<SickSelectModel?> get_signs(int id_data) async {
-    String url = Helper.url + 'sick/get_sick_by_id/' + id_data.toString();
-    var res = await Helper.getApi(url);
-    if (res.statusCode == 200) {
-      var x = res.body;
-      var get_data = sickSelectModelFromJson(x);
-      setState(() {
-        sick_data = get_data;
-        sick_data_backup = get_data;
-        sick_data_list = get_data;
-        signs_data = sick_data[0].signsSick;
-        is_loading = true;
-      });
-      for (var i = 0; i < signs_data.length; i++) {
-        setState(() {
-          signs_data_final.add(signs_data[i]);
-        });
-      }
-    } else {
-      print('Roles List NOK');
-    }
+  Widget item(String title, Widget widget) {
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    ThemeBloc theme = Provider.of<ThemeBloc>(context);
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => widget));
+      },
+      child: Container(
+        height: myHeight * 0.06,
+        width: myWidth * 0.4,
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Center(child: Text(title)),
+      ),
+    );
   }
 }

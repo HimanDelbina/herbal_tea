@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
-import 'package:sara_plant/static/message_static.dart';
 import '../../provider/theme.dart';
+import '../../static/helper.dart';
+import '../../static/shared_helper.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({super.key});
@@ -78,7 +81,9 @@ class _MessagePageState extends State<MessagePage> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     prefixIcon: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        create_message();
+                      },
                       child: Icon(
                         IconlyBold.send,
                         color: theme.iconItem,
@@ -101,5 +106,22 @@ class _MessagePageState extends State<MessagePage> {
         ),
       ),
     );
+  }
+
+  void create_message() async {
+    String url = Helper.url + "chatbot/chat_bot";
+    var body = json.encode({"message": message_controller.text});
+    SharedHelper.shared_get_token();
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      "Authorization": "Token " + SharedHelper.my_token.toString()
+    };
+    var res = await http.post(Uri.parse(url), headers: headers, body: body);
+    // var res = await Helper.postApiToken(url, body);
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      // Map<String, dynamic> result = json.decode(res.body);
+      var result = json.decode(res.body);
+      print(result);
+    } else {}
   }
 }
