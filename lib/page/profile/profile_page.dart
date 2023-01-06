@@ -252,7 +252,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Divider(),
                 ListTile(
                   // tileColor: theme_Bloc.items,
-                  onTap: controller.updateTheme,
+                  // onTap: controller.updateTheme,
                   trailing: Switch(
                     value: change_theme,
                     onChanged: (value) {
@@ -270,7 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       transitionBuilder: (child, animation) =>
                           ScaleTransition(scale: animation, child: child),
                       switchInCurve: Curves.easeInOutBack,
-                      child: controller.is_theme
+                      child: change_theme
                           ? Text("dark_theme",
                                   style: TextStyle(color: theme_Bloc.text),
                                   key: const ValueKey("dark"))
@@ -281,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               .tr()),
                 ),
                 ListTile(
-                  onTap: controller.updatelanguage,
+                  // onTap: controller.updatelanguage,
                   trailing: Switch(
                     value: change_language,
                     onChanged: (value) {
@@ -298,6 +298,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         });
                       }
                       check_shared_language();
+                      // controller.updateTheme;
                     },
                   ),
                   leading: AnimatedSwitcher(

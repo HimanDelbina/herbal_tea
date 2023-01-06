@@ -10,7 +10,7 @@ class ThemeBloc extends ChangeNotifier {
   Color _iconNavbarSelect = Colors.black;
   Color _iconNavbarUnSelect = Colors.grey;
   Color _iconDrawer = Colors.black;
-  Color _iconItem = Colors.black;
+  Color _iconItem = Colors.grey;
   Color _deleteIcon = Colors.redAccent;
   Color _text = Colors.black;
   Color _appbatTextUnselect = Colors.black;
@@ -68,7 +68,7 @@ class ThemeBloc extends ChangeNotifier {
     _iconNavbarSelect = Colors.black;
     _iconNavbarUnSelect = Colors.grey;
     _iconDrawer = Colors.black;
-    _iconItem = Colors.black;
+    _iconItem = Colors.grey;
     _deleteIcon = Colors.redAccent;
     _text = Colors.black;
     _appbatTextUnselect = Colors.grey;

@@ -45,6 +45,7 @@ dependencies:
   connectivity: ^3.0.3
   persian_number_utility: ^1.1.2
   hidden_drawer_menu: ^3.0.1
+  # webview_flutter: ^4.0.1
 
 dev_dependencies:
   flutter_test:

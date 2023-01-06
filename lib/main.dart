@@ -10,6 +10,8 @@ import 'provider/get_plant.dart';
 import 'provider/get_sick.dart';
 import 'provider/get_toturial.dart';
 import 'provider/theme.dart';
+import 'package:sara_plant/page/splash_page.dart';
+import 'page/test_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
         // home: const CheckNet(),
         home: const StartPage(),
         // home: const TestPage(),
+        // home: const Splash(),
       ),
     );
   }

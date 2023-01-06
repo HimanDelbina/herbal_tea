@@ -6,6 +6,7 @@ import '../../components/error_get_data.dart';
 import '../../provider/get_toturial.dart';
 import '../../provider/theme.dart';
 import '../../static/helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ToturialPage extends StatefulWidget {
   const ToturialPage({Key? key}) : super(key: key);
@@ -148,7 +149,7 @@ class _ToturialPageState extends State<ToturialPage> {
                   color: theme.nextBackButton,
                   borderRadius: BorderRadius.circular(5.0)),
               child: Center(
-                  child: Text("قبلی",
+                  child: Text("tutorial_back_page".tr(),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: theme.text))),
             ),
@@ -167,7 +168,7 @@ class _ToturialPageState extends State<ToturialPage> {
                 color: theme.nextBackButton,
                 borderRadius: BorderRadius.circular(5.0)),
             child: Center(
-                child: Text("بعدی",
+                child: Text("tutorial_next_page".tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: theme.text))),
           ),
@@ -195,7 +196,7 @@ class _ToturialPageState extends State<ToturialPage> {
                 color: theme.nextBackButton,
                 borderRadius: BorderRadius.circular(5.0)),
             child: Center(
-                child: Text("ورود",
+                child: Text("tutorial_login".tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: theme.text))),
           ),

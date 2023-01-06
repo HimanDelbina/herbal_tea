@@ -7,6 +7,7 @@ import 'package:sara_plant/page/sick/sick_sign_page.dart';
 import '../../model/new/sick_select_model.dart';
 import '../../provider/theme.dart';
 import '../start_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SickSelect extends StatefulWidget {
   var data;
@@ -81,8 +82,9 @@ class _SickSelectState extends State<SickSelect> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  item("علایم بیماری", SickSignPage(data: sick_data.signsSick)),
-                  item("درمان طبیعی",
+                  item("disease_symptoms".tr(),
+                      SickSignPage(data: sick_data.signsSick)),
+                  item("natural_treatment".tr(),
                       SickNaturalPage(data: sick_data.nuturalSick)),
                 ],
               ),

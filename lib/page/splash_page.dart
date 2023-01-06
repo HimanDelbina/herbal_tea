@@ -6,6 +6,7 @@ import 'package:sara_plant/page/toturial/toturial_page.dart';
 import 'package:sara_plant/static/message_static.dart';
 import '../provider/theme.dart';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     curveText = CurvedAnimation(parent: controller!, curve: Curves.linear);
     colorAnim = ColorTween(begin: Colors.red, end: Colors.amber);
     controller!.forward();
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ToturialPage()));
     });
@@ -57,7 +58,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
         if (is_exit == 2) {
           exit(1);
         } else {
-          MyMessage.mySnackbarMessage(context, "برای خروج دو بار کلیک کنید", 1);
+          MyMessage.mySnackbarMessage(context, "for_exit".tr(), 1);
         }
         return false;
       },
@@ -70,23 +71,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  LottieBuilder.asset("assets/animation/splash.json",
+                  LottieBuilder.asset("assets/animation/splash2.json",
                       height: myHeight * 0.5, repeat: true),
-                  // _typer(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        FadeTransition(
-                            opacity: curveText!,
-                            child: const Text("product by IO Team",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold))),
-                      ],
-                    ),
-                  ),
+                  animTextProduct(),
                 ],
               ),
             ),
@@ -96,23 +83,20 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _typer() {
-    double myHeight = MediaQuery.of(context).size.height;
-    double myWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.only(top: 80.0),
-      child: SizedBox(
-        width: myWidth,
-        child: Center(
-          child: DefaultTextStyle(
-            style: const TextStyle(
-                fontSize: 90.0, fontFamily: 'plant', color: Colors.white),
-            child: AnimatedTextKit(isRepeatingAnimation: false, animatedTexts: [
-              TyperAnimatedText('Plants',
-                  speed: const Duration(milliseconds: 300)),
-            ]),
+  Widget animTextProduct() {
+    return DefaultTextStyle(
+      textAlign: TextAlign.end,
+      style: const TextStyle(
+          fontSize: 14.0, color: Colors.white, fontWeight: FontWeight.bold),
+      child: AnimatedTextKit(
+        animatedTexts: [
+          WavyAnimatedText(
+            'Product by IO Team',
+            speed: const Duration(milliseconds: 150),
           ),
-        ),
+        ],
+        isRepeatingAnimation: false,
+        onTap: () {},
       ),
     );
   }

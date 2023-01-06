@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../page/register/signup.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MyMessage {
   static void mySnackbarMessage(
@@ -45,9 +46,9 @@ class MyMessage {
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
                   const VerticalDivider(color: Colors.white),
-                  const Expanded(
-                      child: Text("به معنی تایید نهایی",
-                          style: TextStyle(fontFamily: "Vazir"))),
+                  Expanded(
+                      child: Text("final_approval".tr(),
+                          style: const TextStyle(fontFamily: "Vazir"))),
                 ],
               ),
               const Divider(),
@@ -62,9 +63,9 @@ class MyMessage {
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
                   const VerticalDivider(color: Colors.white),
-                  const Expanded(
-                      child: Text("به معنی تشخیص ضعیف",
-                          style: TextStyle(fontFamily: "Vazir"))),
+                  Expanded(
+                      child: Text("poor_diagnosis".tr(),
+                          style: const TextStyle(fontFamily: "Vazir"))),
                 ],
               ),
               const Divider(),
@@ -78,9 +79,9 @@ class MyMessage {
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
                   const VerticalDivider(color: Colors.white),
-                  const Expanded(
-                      child: Text("به معنی عدم تشخیص درست",
-                          style: TextStyle(fontFamily: "Vazir"))),
+                  Expanded(
+                      child: Text("misdiagnosis".tr(),
+                          style: const TextStyle(fontFamily: "Vazir"))),
                 ],
               ),
             ],
@@ -124,7 +125,7 @@ class MyMessage {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: Duration(seconds: duration),
         action: SnackBarAction(
-            label: "ثبت نام",
+            label: "signUp".tr(),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SignUp()));
@@ -137,7 +138,7 @@ class MyMessage {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: Duration(seconds: duration),
         action: SnackBarAction(
-            label: "ثبت نام",
+            label: "signUp".tr(),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SignUp()));

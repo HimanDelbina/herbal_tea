@@ -12,6 +12,7 @@ import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
 import '../../static/user_static.dart';
 import '../../provider/theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SickHome extends StatefulWidget {
   const SickHome({super.key});
@@ -72,8 +73,8 @@ class _SickHomeState extends State<SickHome> {
                   },
                   cursorColor: theme.cursorSearch,
                   decoration: InputDecoration(
-                      labelText: "جستجو",
-                      hintText: "جستجو",
+                      labelText: "serach".tr(),
+                      hintText: "serach".tr(),
                       hintStyle: TextStyle(color: theme.unselectItem),
                       labelStyle: TextStyle(color: theme.text),
                       suffixIconColor: theme.iconItem,
@@ -148,7 +149,7 @@ class _SickHomeState extends State<SickHome> {
                                                   ? delete_sick_faviorate()
                                                   : MyMessage.mySignUpMessage(
                                                       context,
-                                                      "لطفا اول ثبت نام کنید",
+                                                      "complete_signUp".tr(),
                                                       1);
                                         },
                                         child: Icon(
@@ -230,7 +231,7 @@ class _SickHomeState extends State<SickHome> {
                                                 ? delete_sick_faviorate()
                                                 : MyMessage.mySignUpMessage(
                                                     context,
-                                                    "لطفا اول ثبت نام کنید",
+                                                    "complete_signUp".tr(),
                                                     1);
                                       },
                                       child: MyFaviorateIcon(
@@ -262,13 +263,12 @@ class _SickHomeState extends State<SickHome> {
     var res = await Helper.postApi(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
       MyMessage.mySnackbarMessage(
-          context, 'بیماری به لیست مورد علاقه ها اضافه شد', 1);
+          context, "add_sick_faviorate_complete".tr(), 1);
     } else if ((res.statusCode == 208)) {
       MyMessage.mySnackbarMessage(
-          context, 'این بیماری قبلا به لیست مورد علاقه ها اضافه شده', 1);
+          context, "add_sick_faviorate_already".tr(), 1);
     } else {
-      MyMessage.mySnackbarMessage(
-          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
+      MyMessage.mySnackbarMessage(context, "add_error".tr(), 1);
     }
   }
 
@@ -277,9 +277,9 @@ class _SickHomeState extends State<SickHome> {
     var body = json.encode({"user": UserStaticFile.user_id!, "sick": sick_id});
     var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      MyMessage.mySnackbarMessage(context, 'با موفقیت از لیست حذف شد', 1);
+      MyMessage.mySnackbarMessage(context, "delete_complete".tr(), 1);
     } else {
-      MyMessage.mySnackbarMessage(context, 'متاسفانه از لیست حذف نشد', 1);
+      MyMessage.mySnackbarMessage(context, "delete_error".tr(), 1);
     }
   }
 }

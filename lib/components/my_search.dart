@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/search_component.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../provider/theme.dart';
 
 class MySearch extends StatefulWidget {
@@ -37,8 +37,8 @@ class _MySearchState extends State<MySearch> {
             },
             cursorColor: theme.cursorSearch,
             decoration: InputDecoration(
-                labelText: "جستجو",
-                hintText: "جستجو",
+                labelText: "serach".tr(),
+                hintText: "serach".tr(),
                 hintStyle: TextStyle(color: theme.unselectItem),
                 labelStyle: TextStyle(color: theme.text),
                 suffixIconColor: theme.iconItem,

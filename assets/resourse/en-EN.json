@@ -19,6 +19,7 @@
   "delete_complete": "Successfully removed from the list",
   "delete_error": "Unfortunately, it was not removed from the list",
   "price": "Price : ",
+  "serach": "search",
   "add_error": "An error has occurred. Please try again later",
   "add_herbaltea_card_complete": "The herbaltea was added to the cart",
   "add_herbaltea_card_already": "This herbaltea has already been added to the shopping cart",
@@ -29,6 +30,18 @@
   "properties": "Properties",
   "loss": "Loss",
   "medicinal_plants": "Medicinal Plants",
+  "disease_symptoms": "Disease symptoms",
+  "natural_treatment": "Natural treatment",
   "for_exit": "Double click to exit",
-  "check_net": "Please check your internet connection"
+  "check_net": "Please check your internet connection",
+  "register_name": "first name",
+  "register_lastname": "last name",
+  "register_phone": "phone number",
+  "register_address": "address",
+  "register_password": "password",
+  "register_already_message": "This mobile number is already registered",
+  "register_create_message": "Your registration was successful",
+  "tutorial_back_page": "Back",
+  "tutorial_next_page": "Next",
+  "tutorial_login": "Login"
 }

@@ -9,6 +9,7 @@ import '../../components/error_get_data.dart';
 import '../../provider/theme.dart';
 import '../../static/helper.dart';
 import '../../static/user_static.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -37,15 +38,25 @@ class _SignUpState extends State<SignUp> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           child: Column(
             children: [
-              items(first_name, "نام", "نام", IconlyLight.profile, false,
-                  TextInputType.name),
-              items(last_name, "نام خانوادگی", "نام خانوادگی",
+              items(first_name, "register_name".tr(), "register_name".tr(),
                   IconlyLight.profile, false, TextInputType.name),
-              items(phone_number, "شماره موبایل", "شماره موبایل",
+              items(
+                  last_name,
+                  "register_lastname".tr(),
+                  "register_lastname".tr(),
+                  IconlyLight.profile,
+                  false,
+                  TextInputType.name),
+              items(phone_number, "register_phone".tr(), "register_phone".tr(),
                   IconlyLight.call, false, TextInputType.phone),
-              items(address, "آدرس", "آدرس", IconlyLight.location, false,
-                  TextInputType.streetAddress),
-              items(password, "رمز", "رمز", IconlyLight.password, false,
+              items(address, "register_address".tr(), "register_address".tr(),
+                  IconlyLight.location, false, TextInputType.streetAddress),
+              items(
+                  password,
+                  "register_password".tr(),
+                  "register_password".tr(),
+                  IconlyLight.password,
+                  false,
                   TextInputType.phone),
               const Spacer(),
               show_button
@@ -64,7 +75,7 @@ class _SignUpState extends State<SignUp> {
                             borderRadius: BorderRadius.circular(5.0)),
                         child: Center(
                           child: Text(
-                            "ثبت نام",
+                            "signUp".tr(),
                             style: TextStyle(color: theme.text),
                           ),
                         ),
@@ -123,20 +134,19 @@ class _SignUpState extends State<SignUp> {
           utf8.decode(result["payload"]["phone"].codeUnits);
       UserStaticFile.address =
           utf8.decode(result["payload"]["address"].codeUnits);
-      MyMessage.mySnackbarMessage(context, "ثبت نام شما با موفقیت انجام شد", 1);
+      MyMessage.mySnackbarMessage(context, "register_create_message".tr(), 1);
       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const StartPage(),
           ));
     } else if (res.statusCode == 208) {
-      MyMessage.mySnackbarMessage(context, "این شماره موبایل قبلا ثبت شده", 1);
+      MyMessage.mySnackbarMessage(context, "register_already_message".tr(), 1);
       setState(() {
         show_button = false;
       });
     } else {
-      MyMessage.mySnackbarMessage(
-          context, 'در حال حاضر خطایی رخ داده لطفا بعدا امتحان کنید', 1);
+      MyMessage.mySnackbarMessage(context, "add_error".tr(), 1);
       setState(() {
         show_button = false;
       });

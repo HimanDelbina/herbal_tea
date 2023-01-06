@@ -1,6 +1,8 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/provider/animation_controller.dart';
 import '../provider/theme.dart';
 
@@ -80,13 +82,57 @@ class _TestPageState extends State<TestPage> {
                     height: myHeight * 0.1,
                     width: myWidth,
                     color: Colors.white,
-                  )
+                  ),
+                  const Spacer(),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     MyWidgetTransform(
+                  //         axis: Axis.vertical,
+                  //         duration: 1600,
+                  //         curve: Curves.bounceIn,
+                  //         child: const Text(" team ")),
+                  //     MyWidgetTransform(
+                  //         axis: Axis.vertical,
+                  //         duration: 1400,
+                  //         curve: Curves.bounceIn,
+                  //         child: const Text("IO ")),
+                  //     MyWidgetTransform(
+                  //         axis: Axis.vertical,
+                  //         duration: 1200,
+                  //         curve: Curves.bounceIn,
+                  //         child: const Text("by ")),
+                  //     MyWidgetTransform(
+                  //         axis: Axis.vertical,
+                  //         duration: 1000,
+                  //         curve: Curves.bounceIn,
+                  //         child: const Text("product ")),
+                  //   ],
+                  // ),
+                  animTest(),
                 ],
               ),
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget animTest() {
+    return DefaultTextStyle(
+      style: const TextStyle(
+          fontSize: 14.0, color: Colors.black, fontWeight: FontWeight.bold),
+      child: AnimatedTextKit(
+        animatedTexts: [
+          WavyAnimatedText('Product by IO Team'),
+          // WavyAnimatedText('Look at the waves'),
+        ],
+        isRepeatingAnimation: false,
+        onTap: () {
+          print("Tap Event");
+        },
+      ),
     );
   }
 
