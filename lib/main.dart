@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
 
         debugShowCheckedModeBanner: false,
-        title: 'flutter_plant',
+        title: 'my_flutter_plant',
         theme: ThemeData(fontFamily: "Vazir"),
         // home: const CheckNet(),
         home: const StartPage(),
