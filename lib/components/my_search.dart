@@ -3,15 +3,20 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/search_component.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sara_plant/components/test_search.dart';
 import '../provider/theme.dart';
 
 class MySearch extends StatefulWidget {
   var data;
   var backup_data;
+  String? value;
+  TextEditingController? text_controller;
   MySearch({
     super.key,
     this.data,
     this.backup_data,
+    this.value,
+    this.text_controller,
   });
 
   @override
@@ -29,10 +34,11 @@ class _MySearchState extends State<MySearch> {
       child: Container(
         height: myHeight * 0.07,
         child: TextFormField(
+            controller: widget.text_controller,
             onChanged: (value) {
               setState(() {
-                widget.data =
-                    SearchComponent.search(widget.backup_data, value, "name");
+                widget.data = SearchComponent.search(
+                    widget.backup_data, value, widget.value);
               });
             },
             cursorColor: theme.cursorSearch,

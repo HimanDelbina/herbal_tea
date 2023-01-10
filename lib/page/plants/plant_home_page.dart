@@ -5,9 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/icon_clicked.dart';
 import 'package:sara_plant/components/my_search.dart';
+import 'package:sara_plant/components/search_component.dart';
 import 'package:sara_plant/static/user_static.dart';
 import 'package:sara_plant/page/plants/plant_select_new.dart';
 import 'package:sara_plant/provider/animation_controller.dart';
+import '../../components/error_page.dart';
+import '../../components/test_search.dart';
 import '../../provider/get_plant.dart';
 import '../../provider/theme.dart';
 import '../../static/message_static.dart';
@@ -46,6 +49,8 @@ class _PlantHomeState extends State<PlantHome> {
     super.dispose();
   }
 
+  TextEditingController plant_search_controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double myHeight = MediaQuery.of(context).size.height;
@@ -71,7 +76,37 @@ class _PlantHomeState extends State<PlantHome> {
           elevation: 0.0),
       body: Column(
         children: [
-          MySearch(data: show_data, backup_data: show_data_Search),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+            child: Container(
+              height: myHeight * 0.07,
+              child: TextFormField(
+                keyboardType: TextInputType.text,
+                controller: plant_search_controller,
+                cursorColor: theme.cursorSearch,
+                decoration: InputDecoration(
+                    labelText: "serach".tr(),
+                    hintText: "serach".tr(),
+                    hintStyle: TextStyle(color: theme.unselectItem),
+                    labelStyle: TextStyle(color: theme.text),
+                    suffixIconColor: theme.iconItem,
+                    suffixIcon: Icon(IconlyLight.search, color: theme.iconItem),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: theme.focusBorderSearch)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: theme.enableBorderSearch)),
+                    border: const OutlineInputBorder()),
+                onChanged: (value) {
+                  setState(() {
+                    show_data = SearchComponent.search(
+                        show_data_Search, value, "plant");
+                  });
+                },
+              ),
+            ),
+          ),
           Expanded(child: listViewShow())
         ],
       ),
@@ -92,116 +127,130 @@ class _PlantHomeState extends State<PlantHome> {
       animation: controller,
       builder: (context, child) {
         return Consumer<PlantGet>(builder: (context, value, child) {
-          show_data = value.map;
+          plant_search_controller.text == ""
+              ? show_data = value.map
+              : show_data = show_data;
           show_data_Search = value.map;
           return value.map.length == 0 && !value.error
               ? const My_loading()
               : value.error
                   ? Text(value.errorMessage.toString())
-                  : ListView.builder(
-                      controller: listenercontroller,
-                      itemCount: show_data.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 3.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PlantSelectNew(
-                                          id: show_data[index].id)));
-                            },
-                            child: AnimatedContainer(
-                              curve: Curves.easeInOut,
-                              duration:
-                                  Duration(milliseconds: 300 + (index * 200)),
-                              transform: Matrix4.translationValues(
-                                  startAnimation ? 0 : myWidth, 0, 0),
-                              decoration:
-                                  const BoxDecoration(color: Colors.white),
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0, vertical: 7.0),
-                                    child: Container(
-                                      height: myHeight * 0.1,
-                                      width: myWidth,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            height: myHeight,
-                                            width: myWidth * 0.2,
-                                            padding: const EdgeInsets.all(7.0),
-                                            child: Center(
-                                              child: Image.network(
-                                                show_data[index].image == null
-                                                    ? ""
-                                                    : Helper.imageUrl +
-                                                        show_data[index]
-                                                            .image
-                                                            .toString(),
+                  : show_data.length != 0
+                      ? ListView.builder(
+                          controller: listenercontroller,
+                          itemCount: show_data.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 3.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PlantSelectNew(
+                                              id: show_data[index].id)));
+                                },
+                                child: AnimatedContainer(
+                                  curve: Curves.easeInOut,
+                                  duration: Duration(
+                                      milliseconds: 300 + (index * 200)),
+                                  transform: Matrix4.translationValues(
+                                      startAnimation ? 0 : myWidth, 0, 0),
+                                  decoration:
+                                      const BoxDecoration(color: Colors.white),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0, vertical: 7.0),
+                                        child: Container(
+                                          height: myHeight * 0.1,
+                                          width: myWidth,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: myHeight,
+                                                width: myWidth * 0.2,
+                                                padding:
+                                                    const EdgeInsets.all(7.0),
+                                                child: Center(
+                                                  child: Image.network(
+                                                    show_data[index].image ==
+                                                            null
+                                                        ? ""
+                                                        : Helper.imageUrl +
+                                                            show_data[index]
+                                                                .image
+                                                                .toString(),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          const VerticalDivider(),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 10.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Text(
-                                                    show_data[index].name,
-                                                    style: TextStyle(
-                                                      color: theme.text,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    show_data[index].mazaj.name,
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 12.0,
-                                                    ),
-                                                  ),
-                                                  Row(
+                                              const VerticalDivider(),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceBetween,
+                                                            .spaceAround,
                                                     children: [
-                                                      SliderPlant(value
-                                                          .map[index].ranking!),
-                                                      LikePlant(
-                                                          show_data[index]),
+                                                      Text(
+                                                        show_data[index].name,
+                                                        style: TextStyle(
+                                                          color: theme.text,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        show_data[index]
+                                                            .mazaj
+                                                            .name,
+                                                        style: const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 12.0,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          SliderPlant(value
+                                                              .map[index]
+                                                              .ranking!),
+                                                          LikePlant(
+                                                              show_data[index]),
+                                                        ],
+                                                      ),
                                                     ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                      OurSuggestion(show_data[index]),
+                                    ],
                                   ),
-                                  OurSuggestion(show_data[index]),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
+                            );
+                          },
+                        )
+                      : ErrorPage(
+                          image: "assets/animation/empty.json",
+                          text: "null_search".tr(),
+                          is_rich: false);
         });
       },
     );

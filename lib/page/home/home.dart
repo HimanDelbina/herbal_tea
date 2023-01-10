@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/image_slider.dart';
+import 'package:sara_plant/components/my_opacity_animation.dart';
 import 'package:sara_plant/page/herbal_tea/herbalTea_home.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/page/plants/plant_select_new.dart';
@@ -69,27 +70,24 @@ class _HomePageState extends State<HomePage> {
             children: [
               Row(
                 children: [
-                  MyWidgetTransform(
-                    duration: 600,
-                    curve: Curves.easeIn,
+                  MyOpacityAnimation(
+                    duration: 500,
                     child: header_Item_home("assets/image/leaf.png",
                         "plants".tr(), Colors.greenAccent.withOpacity(0.1), () {
                       Navigator.of(context).push(FadeInRoute(
                           page: const PlantHome(), routeName: "plant"));
                     }),
                   ),
-                  MyWidgetTransform(
-                    duration: 800,
-                    curve: Curves.easeIn,
+                  MyOpacityAnimation(
+                    duration: 1000,
                     child: header_Item_home("assets/image/tea.png",
                         "herbaltea".tr(), Colors.brown.withOpacity(0.1), () {
                       Navigator.of(context).push(FadeInRoute(
                           page: const HerbalTeaHome(), routeName: "herbaltea"));
                     }),
                   ),
-                  MyWidgetTransform(
-                    duration: 1000,
-                    curve: Curves.easeIn,
+                  MyOpacityAnimation(
+                    duration: 1500,
                     child: header_Item_home("assets/image/sick.png",
                         "sick".tr(), Colors.redAccent.withOpacity(0.1), () {
                       Navigator.of(context).push(FadeInRoute(

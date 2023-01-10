@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
@@ -70,46 +71,51 @@ class _FavioratePlantState extends State<FavioratePlant> {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 7.0),
-          child: AnimatedContainer(
-            curve: Curves.easeInOut,
-            duration: Duration(milliseconds: 300 + (index * 200)),
-            transform:
-                Matrix4.translationValues(startAnimation ? 0 : myWidth, 0, 0),
-            child: ListTile(
-                contentPadding: const EdgeInsets.all(4.0),
-                dense: true,
-                enableFeedback: true,
-                horizontalTitleGap: 15.0,
-                iconColor: theme.deleteIcon,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              PlantSelectNew(id: data[index].plant.id)));
-                },
-                tileColor: Colors.greenAccent.withOpacity(0.05),
-                title: Text(data[index].plant.name,
-                    style: TextStyle(
-                        color: theme.text, fontWeight: FontWeight.bold)),
-                leading: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(
-                        Helper.imageUrl + data[index].plant.image)),
-                trailing: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        id_data_for_delete = data[index].id;
-                        image_select =
-                            Helper.imageUrl + data[index].plant.image;
-                      });
-                      delete_faviorate_plant(id_data_for_delete!);
-                    },
-                    child: const Icon(IconlyBold.delete))),
+        return MyWidgetTransform(
+          axis: Axis.horizontal,
+          curve: Curves.decelerate,
+          duration: 400 + (index * 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 7.0),
+            child: AnimatedContainer(
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 300 + (index * 200)),
+              transform:
+                  Matrix4.translationValues(startAnimation ? 0 : myWidth, 0, 0),
+              child: ListTile(
+                  contentPadding: const EdgeInsets.all(4.0),
+                  dense: true,
+                  enableFeedback: true,
+                  horizontalTitleGap: 15.0,
+                  iconColor: theme.deleteIcon,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0)),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PlantSelectNew(id: data[index].plant.id)));
+                  },
+                  tileColor: Colors.greenAccent.withOpacity(0.05),
+                  title: Text(data[index].plant.name,
+                      style: TextStyle(
+                          color: theme.text, fontWeight: FontWeight.bold)),
+                  leading: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(
+                          Helper.imageUrl + data[index].plant.image)),
+                  trailing: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          id_data_for_delete = data[index].id;
+                          image_select =
+                              Helper.imageUrl + data[index].plant.image;
+                        });
+                        delete_faviorate_plant(id_data_for_delete!);
+                      },
+                      child: const Icon(IconlyBold.delete))),
+            ),
           ),
         );
       },

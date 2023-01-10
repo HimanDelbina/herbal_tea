@@ -110,9 +110,8 @@ class MyMessage {
                     width: myWidth * 0.1,
                     padding: const EdgeInsets.all(1.0),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
                     child: Image.network(image)),
           ],
         ),

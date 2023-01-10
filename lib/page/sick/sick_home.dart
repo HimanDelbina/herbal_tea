@@ -7,6 +7,7 @@ import 'package:sara_plant/page/sick/sick_select.dart';
 import 'package:sara_plant/provider/get_sick.dart';
 import 'package:sara_plant/static/message_static.dart';
 import '../../components/error_get_data.dart';
+import '../../components/error_page.dart';
 import '../../components/search_component.dart';
 import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
@@ -34,6 +35,7 @@ class _SickHomeState extends State<SickHome> {
     });
   }
 
+  TextEditingController sick_search_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double myHeight = MediaQuery.of(context).size.height;
@@ -65,107 +67,34 @@ class _SickHomeState extends State<SickHome> {
             child: Container(
               height: myHeight * 0.07,
               child: TextFormField(
-                  onChanged: (value) {
-                    setState(() {
-                      show_data = SearchComponent.search(
-                          show_data_Search, value, "name");
-                    });
-                  },
-                  cursorColor: theme.cursorSearch,
-                  decoration: InputDecoration(
-                      labelText: "serach".tr(),
-                      hintText: "serach".tr(),
-                      hintStyle: TextStyle(color: theme.unselectItem),
-                      labelStyle: TextStyle(color: theme.text),
-                      suffixIconColor: theme.iconItem,
-                      suffixIcon:
-                          Icon(IconlyLight.search, color: theme.iconItem),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: theme.focusBorderSearch)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: theme.enableBorderSearch)),
-                      border: const OutlineInputBorder())),
+                keyboardType: TextInputType.text,
+                controller: sick_search_controller,
+                cursorColor: theme.cursorSearch,
+                decoration: InputDecoration(
+                    labelText: "serach".tr(),
+                    hintText: "serach".tr(),
+                    hintStyle: TextStyle(color: theme.unselectItem),
+                    labelStyle: TextStyle(color: theme.text),
+                    suffixIconColor: theme.iconItem,
+                    suffixIcon: Icon(IconlyLight.search, color: theme.iconItem),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: theme.focusBorderSearch)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: theme.enableBorderSearch)),
+                    border: const OutlineInputBorder()),
+                onChanged: (value) {
+                  setState(() {
+                    show_data =
+                        SearchComponent.search(show_data_Search, value, "sick");
+                  });
+                },
+              ),
             ),
           ),
           Expanded(child: listViewShow())
         ],
       ),
-    );
-  }
-
-  showFinalItem(int index) {
-    if (index == 0) {
-      return listViewShow();
-    } else if (index == 1) {
-      return gridViewShow();
-    }
-  }
-
-  Widget gridViewShow() {
-    double myHeight = MediaQuery.of(context).size.height;
-    double myWidth = MediaQuery.of(context).size.width;
-    ThemeBloc theme = Provider.of<ThemeBloc>(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-      child: Consumer<SickGet>(builder: (context, value, child) {
-        return value.map.length == 0 && !value.error
-            ? const My_loading()
-            : value.error
-                ? Text(value.errorMessage.toString())
-                : GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0),
-                    itemCount: value.map.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Stack(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  height: myHeight * 0.04,
-                                  width: myWidth * 0.08,
-                                  child: Center(
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            sick_id = show_data[index].id;
-                                          });
-                                          SharedHelper.my_token != null &&
-                                                  show_data[index].isLike ==
-                                                      false
-                                              ? save_sick()
-                                              : show_data[index].isLike == true
-                                                  ? delete_sick_faviorate()
-                                                  : MyMessage.mySignUpMessage(
-                                                      context,
-                                                      "complete_signUp".tr(),
-                                                      1);
-                                        },
-                                        child: Icon(
-                                            show_data[index].isLike == true
-                                                ? IconlyBold.bookmark
-                                                : IconlyLight.bookmark)),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  );
-      }),
     );
   }
 
@@ -177,75 +106,86 @@ class _SickHomeState extends State<SickHome> {
     double myWidth = MediaQuery.of(context).size.width;
     ThemeBloc theme = Provider.of<ThemeBloc>(context);
     return Consumer<SickGet>(builder: (context, value, child) {
-      show_data = value.map;
+      sick_search_controller.text == ""
+          ? show_data = value.map
+          : show_data = show_data;
       show_data_Search = value.map;
       return value.map.length == 0 && !value.error
           ? const My_loading()
           : value.error
               ? Text(value.errorMessage.toString())
-              : ListView.builder(
-                  itemCount: show_data.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 3.0),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SickSelect(data: show_data[index])));
-                          },
-                          child: AnimatedContainer(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 7.0, horizontal: 10.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0)),
-                            curve: Curves.easeInOut,
-                            duration:
-                                Duration(milliseconds: 300 + (index * 200)),
-                            transform: Matrix4.translationValues(
-                                startAnimation ? 0 : myWidth, 0, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(show_data[index].name,
-                                    style: TextStyle(
-                                        color: theme.text,
-                                        fontWeight: FontWeight.bold)),
-                                Container(
-                                  height: myHeight * 0.04,
-                                  width: myWidth * 0.08,
-                                  child: Center(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          sick_id = show_data[index].id;
-                                        });
-                                        SharedHelper.my_token != null &&
-                                                show_data[index].isLike == false
-                                            ? save_sick()
-                                            : show_data[index].isLike == true
-                                                ? delete_sick_faviorate()
-                                                : MyMessage.mySignUpMessage(
-                                                    context,
-                                                    "complete_signUp".tr(),
-                                                    1);
-                                      },
-                                      child: MyFaviorateIcon(
-                                          is_fave:
-                                              show_data[index].isLike == true),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                    );
-                  },
-                );
+              : show_data.length != 0
+                  ? ListView.builder(
+                      itemCount: show_data.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 3.0),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SickSelect(
+                                            data: show_data[index])));
+                              },
+                              child: AnimatedContainer(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 7.0, horizontal: 10.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                curve: Curves.easeInOut,
+                                duration:
+                                    Duration(milliseconds: 300 + (index * 200)),
+                                transform: Matrix4.translationValues(
+                                    startAnimation ? 0 : myWidth, 0, 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(show_data[index].name,
+                                        style: TextStyle(
+                                            color: theme.text,
+                                            fontWeight: FontWeight.bold)),
+                                    Container(
+                                      height: myHeight * 0.04,
+                                      width: myWidth * 0.08,
+                                      child: Center(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              sick_id = show_data[index].id;
+                                            });
+                                            SharedHelper.my_token != null &&
+                                                    show_data[index].isLike ==
+                                                        false
+                                                ? save_sick()
+                                                : show_data[index].isLike ==
+                                                        true
+                                                    ? delete_sick_faviorate()
+                                                    : MyMessage.mySignUpMessage(
+                                                        context,
+                                                        "complete_signUp".tr(),
+                                                        1);
+                                          },
+                                          child: MyFaviorateIcon(
+                                              is_fave:
+                                                  show_data[index].isLike ==
+                                                      true),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        );
+                      },
+                    )
+                  : ErrorPage(
+                      image: "assets/animation/empty.json",
+                      text: "null_search".tr(),
+                      is_rich: false);
     });
   }
 

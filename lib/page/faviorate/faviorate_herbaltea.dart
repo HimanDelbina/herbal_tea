@@ -61,23 +61,28 @@ class _FaviorateHerbalTeaState extends State<FaviorateHerbalTea> {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(data[index].herbaltea.name,
-                    style: TextStyle(color: theme.text)),
-                GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        id_data_for_delete = data[index].id;
-                      });
-                      delete_faviorate_herbaltea(id_data_for_delete!);
-                    },
-                    child: Icon(IconlyLight.delete, color: theme.deleteIcon))
-              ],
+        return MyWidgetTransform(
+          axis: Axis.horizontal,
+          curve: Curves.decelerate,
+          duration: 400 + (index * 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(data[index].herbaltea.name,
+                      style: TextStyle(color: theme.text)),
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          id_data_for_delete = data[index].id;
+                        });
+                        delete_faviorate_herbaltea(id_data_for_delete!);
+                      },
+                      child: Icon(IconlyLight.delete, color: theme.deleteIcon))
+                ],
+              ),
             ),
           ),
         );

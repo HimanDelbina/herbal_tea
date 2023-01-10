@@ -1,21 +1,43 @@
 class SearchComponent {
-  static dynamic search(var list, String s, [search_based_on = "name"]) {
-    var list2 = [];
+  static dynamic search(var data, String search, [search_based_on = "plant"]) {
+    var data_final = [];
 
-    if (search_based_on == "name") {
-      list = list.where((e) {
-        if (e.name.toLowerCase().contains(s) ||
-            e.name.toUpperCase().contains(s)) {
-          list2.add(e);
+    if (search_based_on == "plant") {
+      data = data.where((searching) {
+        if (searching.name.toLowerCase().contains(search) ||
+            searching.name.toUpperCase().contains(search)) {
+          data_final.add(searching);
           return true;
         } else {
           return false;
         }
       }).toList();
     }
-    if (s == '') {
-      return list;
+    if (search_based_on == "herbaltea") {
+      data = data.where((searching) {
+        if (searching.name.toLowerCase().contains(search) ||
+            searching.name.toUpperCase().contains(search)) {
+          data_final.add(searching);
+          return true;
+        } else {
+          return false;
+        }
+      }).toList();
     }
-    return list2;
+    if (search_based_on == "sick") {
+      data = data.where((searching) {
+        if (searching.name.toLowerCase().contains(search) ||
+            searching.name.toUpperCase().contains(search)) {
+          data_final.add(searching);
+          return true;
+        } else {
+          return false;
+        }
+      }).toList();
+    }
+    if (search == '') {
+      return data;
+    }
+    return data_final;
   }
 }

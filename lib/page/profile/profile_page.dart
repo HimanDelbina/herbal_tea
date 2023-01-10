@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_page.dart';
+import 'package:sara_plant/components/my_opacity_animation.dart';
 import 'package:sara_plant/static/shared_helper.dart';
 import 'package:sara_plant/static/user_static.dart';
 import 'package:sara_plant/page/register/signup.dart';
@@ -42,6 +44,43 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  // Animation? animation;
+  // AnimationController? animationController;
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return AnimatedBuilder(
+  //     animation: animationController!,
+  //     builder: (context, child) {
+  //       return Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 15.0),
+  //         child: Container(
+  //           height: double.infinity,
+  //           width: double.infinity,
+  //           child: is_signin
+  //               ? Column(
+  //                   children: [
+  //                     MyOpacityAnimation(child: signin_profile()),
+  //                     Opacity(
+  //                         opacity: animation!.value, child: signin_setting())
+  //                     // AnimatedOpacity(
+  //                     //     opacity: animation!.value,
+  //                     //     duration: const Duration(milliseconds: 300),
+  //                     //     child: signin_setting()),
+  //                   ],
+  //                 )
+  //               : ErrorPage(
+  //                   image: "assets/animation/user.json",
+  //                   is_rich: true,
+  //                   rich_text: "please_signUp1".tr(),
+  //                   rich_text_click: "signUp".tr(),
+  //                   rich_text2: "please_signUp2".tr(),
+  //                   page: const SignUp()),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,8 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
         child: is_signin
             ? Column(
                 children: [
-                  signin_profile(),
-                  signin_setting(),
+                  MyOpacityAnimation(duration: 500, child: signin_profile()),
+                  MyOpacityAnimation(duration: 500, child: signin_setting()),
                 ],
               )
             : ErrorPage(
@@ -136,46 +175,62 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               const Divider(),
-              ListTile(
-                // tileColor: theme_Bloc.items,
-                trailing:
-                    Icon(IconlyLight.edit_square, color: theme_Bloc.iconItem),
-                leading: Icon(IconlyBold.profile, color: theme_Bloc.iconItem),
-                title: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        UserStaticFile.first_name.toString(),
+              MyWidgetTransform(
+                axis: Axis.horizontal,
+                curve: Curves.decelerate,
+                duration: 700,
+                child: ListTile(
+                  // tileColor: theme_Bloc.items,
+                  trailing:
+                      Icon(IconlyLight.edit_square, color: theme_Bloc.iconItem),
+                  leading: Icon(IconlyBold.profile, color: theme_Bloc.iconItem),
+                  title: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: Text(
+                          UserStaticFile.first_name.toString(),
+                          style: TextStyle(color: theme_Bloc.text),
+                        ),
+                      ),
+                      Text(
+                        UserStaticFile.last_name.toString(),
                         style: TextStyle(color: theme_Bloc.text),
                       ),
-                    ),
-                    Text(
-                      UserStaticFile.last_name.toString(),
-                      style: TextStyle(color: theme_Bloc.text),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              ListTile(
-                // tileColor: theme_Bloc.items,
-                trailing:
-                    Icon(IconlyLight.edit_square, color: theme_Bloc.iconItem),
-                leading: Icon(IconlyBold.call, color: theme_Bloc.iconItem),
-                title: Text(
-                  UserStaticFile.phone_number.toString(),
-                  style: TextStyle(color: theme_Bloc.text),
+              MyWidgetTransform(
+                axis: Axis.horizontal,
+                curve: Curves.decelerate,
+                duration: 800,
+                child: ListTile(
+                  // tileColor: theme_Bloc.items,
+                  trailing:
+                      Icon(IconlyLight.edit_square, color: theme_Bloc.iconItem),
+                  leading: Icon(IconlyBold.call, color: theme_Bloc.iconItem),
+                  title: Text(
+                    UserStaticFile.phone_number.toString(),
+                    style: TextStyle(color: theme_Bloc.text),
+                  ),
                 ),
               ),
-              ListTile(
-                // tileColor: theme_Bloc.items,
-                trailing:
-                    Icon(IconlyLight.edit_square, color: theme_Bloc.iconItem),
-                leading: Icon(IconlyBold.location, color: theme_Bloc.iconItem),
-                title: Text(
-                  UserStaticFile.address.toString(),
-                  style: TextStyle(color: theme_Bloc.text),
-                  softWrap: true,
+              MyWidgetTransform(
+                axis: Axis.horizontal,
+                curve: Curves.decelerate,
+                duration: 900,
+                child: ListTile(
+                  // tileColor: theme_Bloc.items,
+                  trailing:
+                      Icon(IconlyLight.edit_square, color: theme_Bloc.iconItem),
+                  leading:
+                      Icon(IconlyBold.location, color: theme_Bloc.iconItem),
+                  title: Text(
+                    UserStaticFile.address.toString(),
+                    style: TextStyle(color: theme_Bloc.text),
+                    softWrap: true,
+                  ),
                 ),
               ),
             ],
@@ -250,71 +305,81 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 const Divider(),
-                ListTile(
-                  // tileColor: theme_Bloc.items,
-                  // onTap: controller.updateTheme,
-                  trailing: Switch(
-                    value: change_theme,
-                    onChanged: (value) {
-                      setState(() {
-                        change_theme = value;
-                      });
-                      check_shared_data_test();
-                      change_theme
-                          ? theme_Bloc.blackTheme()
-                          : theme_Bloc.defaltTheme();
-                    },
+                MyWidgetTransform(
+                  axis: Axis.horizontal,
+                  curve: Curves.decelerate,
+                  duration: 1000,
+                  child: ListTile(
+                    // tileColor: theme_Bloc.items,
+                    // onTap: controller.updateTheme,
+                    trailing: Switch(
+                      value: change_theme,
+                      onChanged: (value) {
+                        setState(() {
+                          change_theme = value;
+                        });
+                        check_shared_data_test();
+                        change_theme
+                            ? theme_Bloc.blackTheme()
+                            : theme_Bloc.defaltTheme();
+                      },
+                    ),
+                    leading: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 600),
+                        transitionBuilder: (child, animation) =>
+                            ScaleTransition(scale: animation, child: child),
+                        switchInCurve: Curves.easeInOutBack,
+                        child: change_theme
+                            ? Text("dark_theme",
+                                    style: TextStyle(color: theme_Bloc.text),
+                                    key: const ValueKey("dark"))
+                                .tr()
+                            : Text("light_theme",
+                                    style: TextStyle(color: theme_Bloc.text),
+                                    key: const ValueKey("light"))
+                                .tr()),
                   ),
-                  leading: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 600),
-                      transitionBuilder: (child, animation) =>
-                          ScaleTransition(scale: animation, child: child),
-                      switchInCurve: Curves.easeInOutBack,
-                      child: change_theme
-                          ? Text("dark_theme",
-                                  style: TextStyle(color: theme_Bloc.text),
-                                  key: const ValueKey("dark"))
-                              .tr()
-                          : Text("light_theme",
-                                  style: TextStyle(color: theme_Bloc.text),
-                                  key: const ValueKey("light"))
-                              .tr()),
                 ),
-                ListTile(
-                  // onTap: controller.updatelanguage,
-                  trailing: Switch(
-                    value: change_language,
-                    onChanged: (value) {
-                      setState(() {
-                        change_language = value;
-                      });
-                      if (change_language == true) {
+                MyWidgetTransform(
+                  axis: Axis.horizontal,
+                  curve: Curves.decelerate,
+                  duration: 1100,
+                  child: ListTile(
+                    // onTap: controller.updatelanguage,
+                    trailing: Switch(
+                      value: change_language,
+                      onChanged: (value) {
                         setState(() {
-                          context.setLocale(const Locale('en', 'EN'));
+                          change_language = value;
                         });
-                      } else {
-                        setState(() {
-                          context.setLocale(const Locale('fa', 'IR'));
-                        });
-                      }
-                      check_shared_language();
-                      // controller.updateTheme;
-                    },
+                        if (change_language == true) {
+                          setState(() {
+                            context.setLocale(const Locale('en', 'EN'));
+                          });
+                        } else {
+                          setState(() {
+                            context.setLocale(const Locale('fa', 'IR'));
+                          });
+                        }
+                        check_shared_language();
+                        // controller.updateTheme;
+                      },
+                    ),
+                    leading: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 600),
+                        transitionBuilder: (child, animation) =>
+                            ScaleTransition(scale: animation, child: child),
+                        switchInCurve: Curves.easeInOutBack,
+                        child: controller.is_lan
+                            ? Text("language",
+                                    style: TextStyle(color: theme_Bloc.text),
+                                    key: const ValueKey("persian"))
+                                .tr()
+                            : Text("language",
+                                    style: TextStyle(color: theme_Bloc.text),
+                                    key: const ValueKey("english"))
+                                .tr()),
                   ),
-                  leading: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 600),
-                      transitionBuilder: (child, animation) =>
-                          ScaleTransition(scale: animation, child: child),
-                      switchInCurve: Curves.easeInOutBack,
-                      child: controller.is_lan
-                          ? Text("language",
-                                  style: TextStyle(color: theme_Bloc.text),
-                                  key: const ValueKey("persian"))
-                              .tr()
-                          : Text("language",
-                                  style: TextStyle(color: theme_Bloc.text),
-                                  key: const ValueKey("english"))
-                              .tr()),
                 ),
               ],
             ),

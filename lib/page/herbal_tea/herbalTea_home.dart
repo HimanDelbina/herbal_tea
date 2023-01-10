@@ -8,7 +8,9 @@ import 'package:sara_plant/page/herbal_tea/herbaltea_select.dart';
 import 'package:sara_plant/provider/get_herbaltea.dart';
 import 'package:sara_plant/static/message_static.dart';
 import '../../components/error_get_data.dart';
+import '../../components/error_page.dart';
 import '../../components/image_slider.dart';
+import '../../components/search_component.dart';
 import '../../static/helper.dart';
 import '../../static/shared_helper.dart';
 import '../../static/user_static.dart';
@@ -37,6 +39,7 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     });
   }
 
+  TextEditingController herbaltea_search_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double myHeight = MediaQuery.of(context).size.height;
@@ -63,7 +66,39 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
         body: SafeArea(
           child: Column(
             children: [
-              MySearch(data: show_data, backup_data: show_data_Search),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                child: Container(
+                  height: myHeight * 0.07,
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: herbaltea_search_controller,
+                    cursorColor: theme.cursorSearch,
+                    decoration: InputDecoration(
+                        labelText: "serach".tr(),
+                        hintText: "serach".tr(),
+                        hintStyle: TextStyle(color: theme.unselectItem),
+                        labelStyle: TextStyle(color: theme.text),
+                        suffixIconColor: theme.iconItem,
+                        suffixIcon:
+                            Icon(IconlyLight.search, color: theme.iconItem),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: theme.focusBorderSearch)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: theme.enableBorderSearch)),
+                        border: const OutlineInputBorder()),
+                    onChanged: (value) {
+                      setState(() {
+                        show_data = SearchComponent.search(
+                            show_data_Search, value, "herbaltea");
+                      });
+                    },
+                  ),
+                ),
+              ),
               Expanded(child: listViewShow()),
             ],
           ),
@@ -79,119 +114,134 @@ class _HerbalTeaHomeState extends State<HerbalTeaHome> {
     double myWidth = MediaQuery.of(context).size.width;
     ThemeBloc theme = Provider.of<ThemeBloc>(context);
     return Consumer<HerbalTeaGet>(builder: (context, value, child) {
-      show_data = value.map;
+      herbaltea_search_controller.text == ""
+          ? show_data = value.map
+          : show_data = show_data;
       show_data_Search = value.map;
 
       return value.map.length == 0 && !value.error
           ? const My_loading()
           : value.error
               ? Text(value.errorMessage.toString())
-              : ListView.builder(
-                  itemCount: show_data.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 3.0),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HerbalTeaSelect(
-                                        id: show_data[index].id)));
-                          },
-                          child: AnimatedContainer(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0)),
-                            curve: Curves.easeInOut,
-                            duration:
-                                Duration(milliseconds: 300 + (index * 200)),
-                            transform: Matrix4.translationValues(
-                                startAnimation ? 0 : myWidth, 0, 0),
-                            child: Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 7.0),
-                                  child: Container(
-                                    height: myHeight * 0.1,
-                                    width: myWidth,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          height: myHeight,
-                                          width: myWidth * 0.2,
-                                          padding: const EdgeInsets.all(7.0),
-                                          child: Center(
-                                              child: ImageSliderHerbalTea(
-                                            data:
-                                                value.map[index].imageHerbaltea,
-                                          )),
-                                        ),
-                                        const VerticalDivider(),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 10.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Text(show_data[index].name,
-                                                    style: TextStyle(
-                                                        color: theme.text,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                                Row(
+              : show_data.length != 0
+                  ? ListView.builder(
+                      itemCount: show_data.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 3.0),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HerbalTeaSelect(
+                                            id: show_data[index].id)));
+                              },
+                              child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                curve: Curves.easeInOut,
+                                duration:
+                                    Duration(milliseconds: 300 + (index * 200)),
+                                transform: Matrix4.translationValues(
+                                    startAnimation ? 0 : myWidth, 0, 0),
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 7.0),
+                                      child: Container(
+                                        height: myHeight * 0.1,
+                                        width: myWidth,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: myHeight,
+                                              width: myWidth * 0.2,
+                                              padding:
+                                                  const EdgeInsets.all(7.0),
+                                              child: Center(
+                                                  child: ImageSliderHerbalTea(
+                                                data: value
+                                                    .map[index].imageHerbaltea,
+                                              )),
+                                            ),
+                                            const VerticalDivider(),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 10.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceBetween,
+                                                          .spaceAround,
                                                   children: [
-                                                    Text(
-                                                        "price".tr() +
-                                                            show_data[index]
-                                                                .price
-                                                                .toStringAsFixed(
-                                                                    0)
-                                                                .toString()
-                                                                .toPersianDigit()
-                                                                .seRagham(),
+                                                    Text(show_data[index].name,
                                                         style: TextStyle(
-                                                            color: theme.text)),
+                                                            color: theme.text,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
                                                     Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        AddToCartHerbalTea(
-                                                            show_data[index],
-                                                            value.map[index]),
-                                                        const SizedBox(
-                                                            width: 10.0),
-                                                        LikeHerbalTea(
-                                                            show_data[index],
-                                                            value.map[index]),
+                                                        Text(
+                                                            "price".tr() +
+                                                                show_data[index]
+                                                                    .price
+                                                                    .toStringAsFixed(
+                                                                        0)
+                                                                    .toString()
+                                                                    .toPersianDigit()
+                                                                    .seRagham(),
+                                                            style: TextStyle(
+                                                                color: theme
+                                                                    .text)),
+                                                        Row(
+                                                          children: [
+                                                            AddToCartHerbalTea(
+                                                                show_data[
+                                                                    index],
+                                                                value.map[
+                                                                    index]),
+                                                            const SizedBox(
+                                                                width: 10.0),
+                                                            LikeHerbalTea(
+                                                                show_data[
+                                                                    index],
+                                                                value.map[
+                                                                    index]),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    OurSuggestion(show_data[index]),
+                                  ],
                                 ),
-                                OurSuggestion(show_data[index]),
-                              ],
-                            ),
-                          )),
-                    );
-                  },
-                );
+                              )),
+                        );
+                      },
+                    )
+                  : ErrorPage(
+                      image: "assets/animation/empty.json",
+                      text: "null_search".tr(),
+                      is_rich: false);
     });
   }
 

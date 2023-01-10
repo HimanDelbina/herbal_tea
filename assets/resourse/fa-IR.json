@@ -48,5 +48,6 @@
   "tutorial_login": "ورود",
   "final_approval": "به معنی تایید نهایی",
   "poor_diagnosis": "به معنی تشخیص ضعیف",
-  "misdiagnosis": "به معنی عدم تشخیص درست"
+  "misdiagnosis": "به معنی عدم تشخیص درست",
+  "null_search": "موردی یافت نشد"
 }

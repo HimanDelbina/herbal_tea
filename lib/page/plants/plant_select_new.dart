@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
+import 'package:sara_plant/components/my_opacity_animation.dart';
 import 'package:sara_plant/page/plants/plant_khavas.dart';
 import 'package:sara_plant/page/plants/plant_select.dart';
 import 'package:sara_plant/page/plants/plant_zarar.dart';
@@ -42,9 +43,9 @@ class _PlantSelectNewState extends State<PlantSelectNew> {
                 unselectedLabelColor: theme.appbatTextUnselect,
                 indicatorColor: theme.appbatTextSelect,
                 tabs: [
-                  tab_item("plants".tr()),
-                  tab_item("properties".tr()),
-                  tab_item("loss".tr()),
+                  tab_item("plants".tr(), 1000),
+                  tab_item("properties".tr(), 1500),
+                  tab_item("loss".tr(), 2000),
                 ],
               )
             ],
@@ -66,9 +67,10 @@ class _PlantSelectNewState extends State<PlantSelectNew> {
     );
   }
 
-  Widget tab_item(String title) {
+  Widget tab_item(String title, int duration) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0), child: Text(title));
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        child: MyOpacityAnimation(duration: duration, child: Text(title)));
   }
 
   var plant_data = [];

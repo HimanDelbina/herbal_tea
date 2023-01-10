@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_plant/components/error_get_data.dart';
+import 'package:sara_plant/components/my_opacity_animation.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_data.dart';
 import 'package:sara_plant/page/herbal_tea/herbaltea_khavas.dart';
 import '../../model/new/herbaltea_select_model.dart';
@@ -42,9 +43,9 @@ class _HerbalTeaSelectState extends State<HerbalTeaSelect> {
                 unselectedLabelColor: theme.appbatTextUnselect,
                 indicatorColor: theme.appbatTextSelect,
                 tabs: [
-                  tab_item("herbaltea".tr()),
-                  tab_item("properties".tr()),
-                  tab_item("loss".tr()),
+                  tab_item("herbaltea".tr(), 1000),
+                  tab_item("properties".tr(), 1500),
+                  tab_item("loss".tr(), 2000),
                 ],
               )
             ],
@@ -66,9 +67,10 @@ class _HerbalTeaSelectState extends State<HerbalTeaSelect> {
     );
   }
 
-  Widget tab_item(String title) {
+  Widget tab_item(String title, int duration) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0), child: Text(title));
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        child: MyOpacityAnimation(duration: duration, child: Text(title)));
   }
 
   var herbaltea_data = [];

@@ -15,15 +15,6 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   MyMessage.myMessageChatBot(
-  //       context,
-  //       "سلام من یک ربات هستم . اما هنوز فعال نشدم اما به زودی راه اندازی میشم",
-  //       5);
-  // }
-
   TextEditingController message_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -65,9 +56,8 @@ class _MessagePageState extends State<MessagePage> {
                           borderRadius: BorderRadius.circular(5.0)),
                       padding: const EdgeInsetsDirectional.all(15.0),
                       child: Text(
-                        "سلام من یک ربات هستم . اما هنوز فعال نشدم اما به زودی راه اندازی میشم",
-                        style: TextStyle(color: theme.text),
-                      ),
+                          "سلام من یک ربات هستم . اما هنوز فعال نشدم اما به زودی راه اندازی میشم",
+                          style: TextStyle(color: theme.text)),
                     )
                   ],
                 ),
@@ -84,20 +74,16 @@ class _MessagePageState extends State<MessagePage> {
                       onTap: () {
                         create_message();
                       },
-                      child: Icon(
-                        IconlyBold.send,
-                        color: theme.iconItem,
-                      ),
+                      child: Icon(IconlyBold.send, color: theme.iconItem),
                     ),
                     suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          message_controller.clear();
-                        });
-                      },
-                      child:
-                          Icon(Icons.close, size: 17.0, color: theme.iconItem),
-                    ),
+                        onTap: () {
+                          setState(() {
+                            message_controller.clear();
+                          });
+                        },
+                        child: Icon(Icons.close,
+                            size: 17.0, color: theme.iconItem)),
                   ),
                 ),
               ),
@@ -117,9 +103,7 @@ class _MessagePageState extends State<MessagePage> {
       "Authorization": "Token " + SharedHelper.my_token.toString()
     };
     var res = await http.post(Uri.parse(url), headers: headers, body: body);
-    // var res = await Helper.postApiToken(url, body);
     if (res.statusCode == 200 || res.statusCode == 201) {
-      // Map<String, dynamic> result = json.decode(res.body);
       var result = json.decode(res.body);
       print(result);
     } else {}

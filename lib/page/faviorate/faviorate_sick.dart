@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:sara_plant/components/custom_transition.dart';
 import 'package:sara_plant/components/error_get_data.dart';
 import 'package:sara_plant/components/error_page.dart';
 import 'package:sara_plant/components/sign_up_error.dart';
@@ -60,23 +61,28 @@ class _FaviorateSickState extends State<FaviorateSick> {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(data[index].sick.name,
-                    style: TextStyle(color: theme.text)),
-                GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        id_data_for_delete = data[index].id;
-                      });
-                      delete_faviorate_sick(id_data_for_delete!);
-                    },
-                    child: Icon(IconlyLight.delete, color: theme.deleteIcon))
-              ],
+        return MyWidgetTransform(
+          axis: Axis.horizontal,
+          curve: Curves.decelerate,
+          duration: 400 + (index * 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(data[index].sick.name,
+                      style: TextStyle(color: theme.text)),
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          id_data_for_delete = data[index].id;
+                        });
+                        delete_faviorate_sick(id_data_for_delete!);
+                      },
+                      child: Icon(IconlyLight.delete, color: theme.deleteIcon))
+                ],
+              ),
             ),
           ),
         );

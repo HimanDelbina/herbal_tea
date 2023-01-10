@@ -43,5 +43,6 @@
   "register_create_message": "Your registration was successful",
   "tutorial_back_page": "Back",
   "tutorial_next_page": "Next",
-  "tutorial_login": "Login"
+  "tutorial_login": "Login",
+  "null_search": "Nothing found"
 }

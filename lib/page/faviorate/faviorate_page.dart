@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sara_plant/components/my_opacity_animation.dart';
 import 'package:sara_plant/page/faviorate/faviorate_herbaltea.dart';
 import 'package:sara_plant/page/faviorate/faviorate_plant.dart';
 import 'package:sara_plant/page/faviorate/faviorate_sick.dart';
@@ -32,9 +33,9 @@ class _FavioratePageState extends State<FavioratePage> {
                 unselectedLabelColor: theme.appbatTextUnselect,
                 indicatorColor: theme.appbatTextSelect,
                 tabs: [
-                  tab_item("plants".tr()),
-                  tab_item("herbaltea".tr()),
-                  tab_item("sick".tr()),
+                  tab_item("plants".tr(), 1000),
+                  tab_item("herbaltea".tr(), 1500),
+                  tab_item("sick".tr(), 2000),
                 ],
               )
             ],
@@ -51,8 +52,9 @@ class _FavioratePageState extends State<FavioratePage> {
     );
   }
 
-  Widget tab_item(String title) {
+  Widget tab_item(String title, int duration) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0), child: Text(title));
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        child: MyOpacityAnimation(duration: duration, child: Text(title)));
   }
 }

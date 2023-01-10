@@ -3,10 +3,10 @@ import 'package:sara_plant/static/shared_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Helper {
-  // static String url = "http://swaaaa.ir:7777/";
-  // static String imageUrl = "http://swaaaa.ir:7777";
-  static String url = "http://192.168.1.100:7777/";
-  static String imageUrl = "http://192.168.1.100:7777";
+  static String url = "http://swaaaa.ir:7777/";
+  static String imageUrl = "http://swaaaa.ir:7777";
+  // static String url = "http://192.168.1.100:7777/";
+  // static String imageUrl = "http://192.168.1.100:7777";
 
   static Future<dynamic> getApi(String urll) async {
     Uri uri = Uri.parse(urll);
